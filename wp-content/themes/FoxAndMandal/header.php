@@ -381,41 +381,45 @@
            </div> -->
            <div class="bannerSec hero-slider hero-style">
             <div class="swiper-container">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <div class="slide-inner slide-bg-image" style="background-image: url(images/banner/banner-1.jpg);">
-                    <div class="container">
-                      <div data-swiper-parallax="300" class="slide-title">
-                        <h4>Fox & Mandal</h4>        
-                      </div>
-                      <div data-swiper-parallax="400" class="slide-title">
-                        <h2>Banking and Finance</h2>
-                      </div>
-                      <div data-swiper-parallax="400" class="slide-text">
-                        <p>F&M believes that our clients deserve a service that is both practical and commercially sound.</p>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- end slide-inner -->
-                </div>
-                <!-- end swiper-slide -->
-          
-                <div class="swiper-slide">
-                  <div class="slide-inner slide-bg-image"  style="background-image: url(images/banner/banner-2.jpg);">
-                     <div class="container">
-                        <div data-swiper-parallax="300" class="slide-title">
-                          <h4>Fox & Mandal</h4>        
-                        </div>
-                        <div data-swiper-parallax="400" class="slide-title">
-                          <h2>Corporate and Commercial</h2>
-                        </div>
-                        <div data-swiper-parallax="400" class="slide-text">
-                          <p>Fox & Mandal provides end-to-end services for the entire business life cycle of a venture</p>
+              <div class="swiper-wrapper">   
+               <?php 
+               $arr = get_field('banner_images','option');
+               echo gettype($arr);
+               ?>
+                  <div class="swiper-slide">
+                     <div class="slide-inner slide-bg-image" style="background-image: url(images/banner/banner-1.jpg);">
+                        <div class="container">
+                           <div data-swiper-parallax="300" class="slide-title">
+                              <h4>Fox & Mandal</h4>        
+                           </div>
+                           <div data-swiper-parallax="400" class="slide-title">
+                              <h2>Banking and Finance</h2>
+                           </div>
+                           <div data-swiper-parallax="400" class="slide-text">
+                              <p>F&M believes that our clients deserve a service that is both practical and commercially sound.</p>
+                           </div>
                         </div>
                      </div>
+                     <!-- end slide-inner -->
                   </div>
-                  <!-- end slide-inner -->
-                </div>
+                  <!-- end swiper-slide -->
+               <?php ?>
+                  <div class="swiper-slide">
+                     <div class="slide-inner slide-bg-image"  style="background-image: url(images/banner/banner-2.jpg);">
+                        <div class="container">
+                           <div data-swiper-parallax="300" class="slide-title">
+                           <h4>Fox & Mandal</h4>        
+                           </div>
+                           <div data-swiper-parallax="400" class="slide-title">
+                           <h2>Corporate and Commercial</h2>
+                           </div>
+                           <div data-swiper-parallax="400" class="slide-text">
+                           <p>Fox & Mandal provides end-to-end services for the entire business life cycle of a venture</p>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- end slide-inner -->
+                  </div>
                 <!-- end swiper-slide -->
                 <!-- <div class="swiper-slide">
                   <div class="slide-inner slide-bg-image"  style="background-image: url(images/banner/banner-3.jpg);">
@@ -432,19 +436,19 @@
                            </div>
                         </div>
                      </div>
-                  </div>
+                  </div> -->
                   <!-- end slide-inner -->
-                </div> -->
-                <!-- end swiper-slide -->
-              </div>
-              <!-- end swiper-wrapper -->
-          
-              <!-- swipper controls -->
-              <div class="swiper-pagination"></div>
-              <div class="swiper-button-next"></div>
-              <div class="swiper-button-prev"></div>
+                  <!-- </div> -->
+                  <!-- end swiper-slide -->
+                  <!-- </div> -->
+                  <!-- end swiper-wrapper -->
+               
+                  <!-- swipper controls -->
+                  <div class="swiper-pagination"></div>
+                  <div class="swiper-button-next"></div>
+                  <div class="swiper-button-prev"></div>
+               </div>
             </div>
-         </div>
           <!-- end of hero slider -->
          </header>
          <!-- Header Main Area End Here -->

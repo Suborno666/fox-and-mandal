@@ -125,38 +125,38 @@
       <!-- Circle Progress JS -->
       <!-- <script src="js/circle-progress.js"></script> -->
       <!-- countdown JS -->
-      <script src="js/jquery.countdown.min.js"></script> 
+      <!-- <script src="js/jquery.countdown.min.js"></script>  -->
       <!-- AOS -->
-      <script src="js/aos.js"></script>
+      <!-- <script src="js/aos.js"></script> -->
       <!-- Circle Progres -->
-      <script src='js/circle-progress.min.js'></script>   
+      <!-- <script src='js/circle-progress.min.js'></script>    -->
       <!-- GSAP -->
-      <script src='js/gsap.js'></script>
+      <!-- <script src='js/gsap.js'></script> -->
       <!-- Scroll Trigger -->
-      <script src='js/ScrollTrigger.js'></script>
+      <!-- <script src='js/ScrollTrigger.js'></script> -->
       <!-- Split Text -->
-      <script src='js/SplitText.js'></script>
+      <!-- <script src='js/SplitText.js'></script> -->
       <!--slick slider-->
-      <script src='js/slick.js'></script>
+      <!-- <script src='js/slick.js'></script> -->
       <!-- Cursor -->      
-      <script src='js/cursor.js'></script>
+      <!-- <script src='js/cursor.js'></script> -->
       <!-- Magnetic -->
-      <script src='js/magnetic.js'></script>
+      <!-- <script src='js/magnetic.js'></script> -->
       <!-- Hammer -->
-      <script src='js/hammer.min.js'></script>
+      <!-- <script src='js/hammer.min.js'></script> -->
       <!-- Timeline -->
-      <script src='js/timeline.js'></script>
+      <!-- <script src='js/timeline.js'></script> -->
       <!-- GSAP Animation -->
-      <script src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js'></script>
-      <script src='https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js'></script>
+      <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js'></script> -->
+      <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js'></script> -->
       
-      <script src='js/gsap-animation.js'></script>        
+      <!-- <script src='js/gsap-animation.js'></script>         -->
       <!-- Scripts JS -->
-      <script src="js/scripts.js"></script>
+      <!-- <script src="js/scripts.js"></script> -->
       <!-- Revolution JS -->
-      <script src="revolution/rslider.js"></script>
+      <!-- <script src="revolution/rslider.js"></script>
       <script src="revolution/rbtools.min.js"></script>
-      <script src="revolution/rs6.min.js"></script>
+      <script src="revolution/rs6.min.js"></script> -->
       <script>
          
     // HERO SLIDER

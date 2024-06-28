@@ -23,29 +23,36 @@
                
                <ul class="listMwrap col-lg-6">                
                   <li class="menu_list">
-                     <img src="images/homeIc.png" alt=""> 
+                     <img src="<?php echo get_template_directory_uri().'/images/homeIc.png'?>" alt=""> 
                      <div class="subWrapF">
                         <a href="#">Home</a>
                      </div>
                   </li>
                   <li class="menu_list has-sub">
-                     <img src="images/about.png" alt="">
+                     <img src="<?php echo get_template_directory_uri().'/images/about.png'?>" alt="">
                      <div class="subWrapF">
                         <a href="#">About</a>
                         <ul class="subwrapUl">
-                           <li><a href="#">Our Journey</a></li>
-                           <li><a href="#">Mission, Vision, Objectives</a></li>
-                           <li><a href="#">Leadership Team</a></a></li>
-                           <li><a href="#">Awards & Recognitions</a></li>
+                           <?php
+                           wp_nav_menu(
+                              [
+                                 'name'=>'Header Menu About',
+                                 'container'=>'',
+                                 'theme_location'=>'header-menu-about'
+                              ]
+                           )
+                           ?>
                         </ul>
                      </div>   
                   </li>
-                  <li class="menu_list"><img src="<?php echo get_template_directory_uri().'/images/practice.png'?>" alt="">
+                  <li class="menu_list">
+                     <img src="<?php echo get_template_directory_uri().'/images/practice.png'?>" alt="">
                      <div class="subWrapF">
                         <a href="#">Practice Areas</a>
                      </div>
                   </li>
-                  <li class="menu_list"><img src="<?php echo get_template_directory_uri().'/images/teamIc.png'?>" alt="">
+                  <li class="menu_list">
+                     <img src="<?php echo get_template_directory_uri().'/images/teamIc.png'?>" alt="">
                      <div class="subWrapF">
                         <a href="#">Our Team</a>
                      </div>
@@ -55,9 +62,15 @@
                      <div class="subWrapF">
                         <a href="#">Insights</a>
                         <ul class="subwrapUl">
-                           <li><a href="#"><a href="#">Case Studies</a></li>
-                           <li><a href="#">Blogs</a></li>
-                           <li><a href="#">News & Media</a></a></li>
+                        <?php
+                           wp_nav_menu(
+                              [
+                                 'name'=>'Header Menu Insights',
+                                 'container'=>'',
+                                 'theme_location'=>'header-menu-insights'
+                              ]
+                           )
+                           ?>
                         </ul>
                      </div>                  
                   </li>
@@ -66,8 +79,15 @@
                      <div class="subWrapF">
                         <a href="#">Career</a>
                         <ul class="subwrapUl">
-                           <li><a href="#">Alumni</a></li>
-                           
+                        <?php
+                           wp_nav_menu(
+                              [
+                                 'name'=>'Header Menu Careers',
+                                 'container'=>'',
+                                 'theme_location'=>'header-menu-careers'
+                              ]
+                           )
+                           ?>
                         </ul>
                      </div> 
                   </li>
@@ -78,6 +98,9 @@
                      </div>
                   </li>  
                </ul>
+               <!-- <ul class="listMwrap col-lg-6">   -->
+                  
+               <!-- </ul> -->
                <div class="col-lg-6">
                   <div class="formWrapFx">
                      <h3>Let us help you better with your queries.</h3>
@@ -124,16 +147,20 @@
                   </div>
                   <div class="quickF">
                      <h4>Get in Touch</h4>
-                     <p>12 Old Post Office Street
-                        Kolkata 700 001​</p>
+                     <p><?php echo get_field('address','option')?>​</p>
                         <div class="addRM">
-                           <a href="tel:913322484843">+ 91 33 2248 4843</a>
-                           <a href="mailto:calcutta@foxandmandal.co.in">calcutta@foxandmandal.co.in</a>
+                           <a href="tel:913322484843"><?php echo get_field('number','option');?></a>
+                           <a href="mailto:calcutta@foxandmandal.co.in"><?php echo get_field('email','option');?></a>
                         </div>
                         <div class="socialM">
-                           <a href="#">Facebook</a>
-                           <a href="#">Twitter</a>
-                           <a href="#">LinkedIn</a>
+                           <?php 
+                           $data = get_field('socials','option');
+                           foreach($data as $media):
+                           ?>
+                           <a href="<?php echo $media['link']?>"><?php echo $media['name']?></a>
+                           <?php 
+                           endforeach;
+                           ?>
                         </div>
                   </div>
                </div>
@@ -149,8 +176,8 @@
                            <div class="d-flex align-items-center justify-content-between header-content">
                               <div class="site-branding pbmit-logo-area">
                                  <h1 class="site-title">
-                                    <a href="#">
-                                       <img class="logo-img" src="<?php echo get_template_directory_uri()."/images/F_M-Logo.png"?>" alt="attorly">
+                                    <a href="<?php echo esc_url(home_url('/'))?>">
+                                       <img class="logo-img" src="<?php echo get_field('logo','option')['url'];?>" alt="attorly">
                                     </a>
                                  </h1>
                               </div>
@@ -295,70 +322,16 @@
                   </li>
                </ul>
             </div>
-            <!-- <div class="bannerWrap">
-               <div class="eachbanner">
-                   <div class="bnrImg bglayer">
-                     <video class="banner_video" autoplay="" muted="" loop="autoplay" playsinline="" src="images/banner-video.mp4" style=""></video>
-                   </div>                    
-                   <div class="bannerContent">
-                     <div class="container">
-                        <div class="bannerTxt">
-                           <h4>Fox & Mandal</h4>
-                           <h2>125 Years Of Legacy</h2>  
-                           <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                           <div class="btnWrap mt-5">
-                              <ul>
-                                 <li>
-                                    <div class="portfolio-btn btn-1">
-                                       <a href="#" class="pbmit-btn">
-                                          <span>Recent Work</span>
-                                       </a>
-                                    </div>
-                                 </li>
-                              </ul>
-                           </div>
-                        </div>  
-                     </div>  
-                   </div>
-               </div>
-               <div class="eachbanner" style="text-align: center;";>
-                   <div class="bnrImg bglayer">
-                       <img src="images/banner-3.jpg" alt="">
-                   </div> 
-                   <div class="bannerContent">
-                       <h2>Let’s Build Your <br> Future With iLEAD </h2>
-                       
-                       <h4>Not sure what to study? Download Our Guide</h4>
-                       <div class="bannerBtn">
-                           <div class="rdMore"><a href="#"><span>Read More</span></a></div>
-                           <div class="rdMore download"><a href="#"><span>Download</span></a></a></div>
-                       </div>
-                       <h5><i class="fa-regular fa-circle-play"></i>360&deg; campus tour</h5>
-                   </div>
-               </div>
-               <div class="eachbanner">
-                   <div class="bnrImg bglayer">
-                       <img src="images/banner-4.jpg" alt="">
-                   </div>
-                   <div class="bannerContent">
-                       <h2>Degree That’s <br> Right For Your Future </h2>
-                       <h4>With more than 75 major &amp; minor areas of study</h4>
-                       <h5><i class="fa-regular fa-circle-play"></i>360&deg; campus tour</h5>
-                   </div>
-               </div>
-           </div> -->
-           <div class="bannerSec hero-slider hero-style">
+            <?php
+            if(is_front_page()): 
+            ?>
+         <div class="bannerSec hero-slider hero-style">
             <div class="swiper-container">
               <div class="swiper-wrapper">   
-               <?php 
-               $arr = get_field('banner_images','option');
-               // echo gettype($arr);
-               // echo count($arr);
-               foreach($arr as $element):
-                  // print_r($element);
-                  // echo "<pre>";
-      
-               ?>
+                  <?php 
+                     $arr = get_field('banner_images','option');
+                     foreach($arr as $element):
+                  ?>
                   <div class="swiper-slide">
                      <div class="slide-inner slide-bg-image" style="background-image: url(<?php echo $element['banner_image']['url'];?>);">
                         <div class="container">
@@ -376,53 +349,63 @@
                      <!-- end slide-inner -->
                   </div>
                   <!-- end swiper-slide -->
-               <?php
-               endforeach;
-               ?>
-                  <!-- <div class="swiper-slide">
-                     <div class="slide-inner slide-bg-image"  style="background-image: url(images/banner/banner-2.jpg);">
-                        <div class="container">
-                           <div data-swiper-parallax="300" class="slide-title">
-                           <h4>Fox & Mandal</h4>        
-                           </div>
-                           <div data-swiper-parallax="400" class="slide-title">
-                           <h2>Corporate and Commercial</h2>
-                           </div>
-                           <div data-swiper-parallax="400" class="slide-text">
-                           <p>Fox & Mandal provides end-to-end services for the entire business life cycle of a venture</p>
-                           </div>
-                        </div>
-                     </div>
-                  </div> -->
-                <!-- end swiper-slide -->
-                <!-- <div class="swiper-slide">
-                  <div class="slide-inner slide-bg-image"  style="background-image: url(images/banner/banner-3.jpg);">
-                     <div class="container">
-                        <div class="banner_Txt">
-                           <div data-swiper-parallax="300" class="slide-title">
-                           <h4>Fox & Mandal</h4>        
-                           </div>
-                           <div data-swiper-parallax="400" class="slide-title">
-                           <h2>125 Years Of Legacy 3</h2>
-                           </div>
-                           <div data-swiper-parallax="400" class="slide-text">
-                           <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                           </div>
-                        </div>
-                     </div>
-                  </div> -->
-                  <!-- end slide-inner -->
-                  <!-- </div> -->
-                  <!-- end swiper-slide -->
-                  <!-- </div> -->
-                  <!-- end swiper-wrapper -->
-               
-                  <!-- swipper controls -->
+                  <?php
+                     endforeach;
+                  ?>
                   <div class="swiper-pagination"></div>
                   <div class="swiper-button-next"></div>
                   <div class="swiper-button-prev"></div>
                </div>
             </div>
+         <?php
+         endif;
+         ?>
           <!-- end of hero slider -->
-         </header>
-         <!-- Header Main Area End Here -->
+      </header>
+      <!-- Header Main Area End Here -->
+         <!-- Title Bar -->
+         <?php if(is_single()):?>
+            <div class="pbmit-title-bar-wrapper pbmit-title-bar-style-1">
+               <div class="container">
+                  <div class="pbmit-title-bar-content">
+                     <div class="pbmit-title-bar-content-inner">
+                        <div class="pbmit-tbar">
+                           <div class="pbmit-tbar-inner container">
+                              <h1 class="pbmit-tbar-title">Blog Details</h1>
+                           </div>
+                        </div>
+                        <div class="pbmit-breadcrumb">
+                           <div class="pbmit-breadcrumb-inner">
+                              <span><a title="" href="#" class="home"><span>Fox & Mondal</span></a></span>
+                              <span class="sep"><i class="fa fa-long-arrow-right"></i></span>
+                              <span><span class="post-root post post-post current-item">Blog Details</span></span>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         <?php endif; ?>
+         <!-- Title Bar End-->
+         <?php if(is_page(226)):?>
+            <div class="pbmit-title-bar-wrapper pbmit-title-bar-style-1">
+			<div class="container">
+				<div class="pbmit-title-bar-content">
+					<div class="pbmit-title-bar-content-inner">
+						<div class="pbmit-tbar">
+							<div class="pbmit-tbar-inner container">
+								<h1 class="pbmit-tbar-title">Blogs</h1>
+							</div>
+						</div>
+						<div class="pbmit-breadcrumb">
+							<div class="pbmit-breadcrumb-inner">
+								<span><a title="" href="#" class="home"><span>Fox & Mondal</span></a></span>
+								<span class="sep"><i class="fa fa-long-arrow-right"></i></span>
+								<span><span class="post-root post post-post current-item">Blogs</span></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+         <?php endif; ?>

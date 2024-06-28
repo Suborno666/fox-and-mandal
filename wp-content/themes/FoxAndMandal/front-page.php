@@ -2,7 +2,7 @@
 
 get_header();
 
-global $id;
+
 $id = get_the_ID();
 
 ?>
@@ -24,8 +24,10 @@ $id = get_the_ID();
                               <img src="<?php echo get_field('logo_image_about')['url'];?>" class="img-fluid" alt="">
                            </div>
                            <div class="about-heading">
-                              <p>Founded in 1896 by John Kerr Fox and Gokul Chandra Mandal, Fox & Mandal (F&M) is one of India’s oldest law firms. We have remained committed to the service of our clients, team, and the legal community since our incorporation. At F&M, we have achieved the rare distinction of thriving for 125 years in an ecosystem where longevity has all but disappeared.</p>
-                              <p>Our legacy is the cornerstone of our practice. We use our wealth of experience to provide reliable and effective solutions to our clients. We began with 2 partners in our office by the Calcutta High Court in 1896.</p>
+                              
+                                 <p><?php the_content();?></p>
+                              
+                              <p></p>
                            </div>
                         </div> 
                      </div>
@@ -368,8 +370,23 @@ $id = get_the_ID();
                <div class="container">
                   <div class="swiper-slider pbmit-element-testimonial-style-1" data-loop="true" data-autoplay="false" data-dots="false" data-arrows="true" data-columns="1" data-margin="30" data-effect="slide">
                      <div class="swiper-wrapper">
+                        <!-- Slide1 -->
+                        <?php
+                        $args=
+                        [
+                        
+                           'post_type' => 'testimonials',
+                           'post_status' => 'publish',
+                           'posts_per_page'=>-1,
+                           'order'=>'ASC',
+                           
+                        ];
+                        $loop = new WP_Query($args);
+                        while($loop->have_posts()):
+                           $loop->the_post();
+                        ?>
+                        ?>
                         <div class="swiper-slide">
-                            <!-- Slide1 -->
                             <article class="pbmit-testimonial-style-1">
                               <div class="pbminfotech-post-item">
                                  <div class="pbmit-featured-wrapper">
@@ -379,64 +396,22 @@ $id = get_the_ID();
                                     <div class="pbminfotech-box-desc">
                                        <blockquote class="pbminfotech-testimonial-text">
                                           <div class="at-above-post-homepage addthis_tool"></div>
-                                          <p>“”</p>
+                                          <p>“<?php the_content();?>”</p>
                                           <div class="at-below-post-homepage addthis_tool"></div>
                                        </blockquote>
                                     </div>
                                     <div class="pbminfotech-box-author">
-                                       <h3 class="pbminfotech-box-title">Sourav Agarwal</h3>
-                                       <div class="pbminfotech-testimonial-detail">Managing director of company</div>
+                                       <h3 class="pbminfotech-box-title"><?php echo get_field('name',$loop->ID)?></h3>
+                                       <div class="pbminfotech-testimonial-detail"><?php echo get_field('profession',$loop->ID)?></div>
                                     </div>
                                  </div>
                               </div>
                            </article>
                         </div>
-                        <div class="swiper-slide">
-                           <!-- Slide2 -->
-                           <article class="pbmit-testimonial-style-1">
-                             <div class="pbminfotech-post-item">
-                                <div class="pbmit-featured-wrapper">
-                                   <img src="images/testimonial/testimonial-01.jpg" class="img-fluid" alt="">
-                                </div>
-                                <div class="pbminfotech-box-content">
-                                   <div class="pbminfotech-box-desc">
-                                      <blockquote class="pbminfotech-testimonial-text">
-                                         <div class="at-above-post-homepage addthis_tool"></div>
-                                         <p>“Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et.”</p>
-                                         <div class="at-below-post-homepage addthis_tool"></div>
-                                      </blockquote>
-                                   </div>
-                                   <div class="pbminfotech-box-author">
-                                       <h3 class="pbminfotech-box-title">Binay Agarwal</h3>
-                                       <div class="pbminfotech-testimonial-detail">Manager and founder</div>                                      
-                                   </div>
-                                </div>
-                             </div>
-                          </article>
-                        </div>
-                        <div class="swiper-slide">
-                           <!-- Slide3 -->
-                           <article class="pbmit-testimonial-style-1">
-                           <div class="pbminfotech-post-item">
-                              <div class="pbmit-featured-wrapper">
-                                 <img src="images/testimonial/testimonial-02.jpg" class="img-fluid" alt="">
-                              </div>
-                              <div class="pbminfotech-box-content">
-                                 <div class="pbminfotech-box-desc">
-                                    <blockquote class="pbminfotech-testimonial-text">
-                                       <div class="at-above-post-homepage addthis_tool"></div>
-                                       <p>“Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et.”</p>
-                                       <div class="at-below-post-homepage addthis_tool"></div>
-                                    </blockquote>
-                                 </div>
-                                 <div class="pbminfotech-box-author">
-                                    <h3 class="pbminfotech-box-title">Benjamin Sardar</h3>
-                                    <div class="pbminfotech-testimonial-detail">Co founder and CEO</div>
-                                 </div>
-                              </div>
-                           </div>
-                           </article>
-                        </div>
+                        <?php
+                        endwhile;
+                        wp_reset_postdata();
+                        ?>
                      </div>
                   </div>
                </div>
@@ -444,97 +419,28 @@ $id = get_the_ID();
                   <div class="container-fluid">
                      <div class="swiper-slider marquee">
                         <div class="swiper-wrapper">
+                           <?php
+                           $data = get_field('clients',$id);
+                           foreach($data as $clients):
+                              // echo "<pre>";
+                              // print_r($clients);
+                           ?>
                            <div class="swiper-slide">
                               <article class="pbmit-client-style-1">
                                  <div class="pbmit-client-wrapper pbmit-client-with-hover-img">
-                                    <h4 class="pbmit-hide">client 07</h4>
+                                    <h4 class="pbmit-hide"><?php echo $clients['title']?></h4>
                                     <div class="pbmit-client-hover-img">
-                                       <img src="images/client/client-hover-01.png" class="img-fluid"  alt="">
+                                       <img src="<?php echo $clients['image']['url']?>" class="img-fluid"  alt="">
                                     </div>
                                     <div class="pbmit-featured-wrapper">
-                                       <img src="images/client/client-white-01.png" class="img-fluid" alt="">
+                                       <img src="<?php echo $clients['image']['url']?>" class="img-fluid" alt="">
                                     </div>
                                  </div>
                               </article>
                            </div>
-                           <div class="swiper-slide">
-                              <article class="pbmit-client-style-1">
-                                 <div class="pbmit-client-wrapper pbmit-client-with-hover-img">
-                                    <h4 class="pbmit-hide">client 06</h4>
-                                    <div class="pbmit-client-hover-img">
-                                       <img src="images/client/client-hover-01.png" class="img-fluid"  alt="">
-                                    </div>
-                                    <div class="pbmit-featured-wrapper">
-                                       <img src="images/client/client-white-01.png" class="img-fluid" alt="">
-                                    </div>
-                                 </div>
-                              </article>
-                           </div>
-                           <div class="swiper-slide">
-                              <article class="pbmit-client-style-1">
-                                 <div class="pbmit-client-wrapper pbmit-client-with-hover-img">
-                                    <h4 class="pbmit-hide">client 05</h4>
-                                    <div class="pbmit-client-hover-img">
-                                       <img src="images/client/client-hover-01.png" class="img-fluid"  alt="">
-                                    </div>
-                                    <div class="pbmit-featured-wrapper">
-                                       <img src="images/client/client-white-01.png" class="img-fluid" alt="">
-                                    </div>
-                                 </div>
-                              </article>
-                           </div>
-                           <div class="swiper-slide">
-                              <article class="pbmit-client-style-1">
-                                 <div class="pbmit-client-wrapper pbmit-client-with-hover-img">
-                                    <h4 class="pbmit-hide">client 04</h4>
-                                    <div class="pbmit-client-hover-img">
-                                       <img src="images/client/client-hover-01.png" class="img-fluid"  alt="">
-                                    </div>
-                                    <div class="pbmit-featured-wrapper">
-                                       <img src="images/client/client-white-01.png" class="img-fluid" alt="">
-                                    </div>
-                                 </div>
-                              </article>
-                           </div>
-                           <div class="swiper-slide">
-                              <article class="pbmit-client-style-1">
-                                 <div class="pbmit-client-wrapper pbmit-client-with-hover-img">
-                                    <h4 class="pbmit-hide">client 03</h4>
-                                    <div class="pbmit-client-hover-img">
-                                       <img src="images/client/client-hover-01.png" class="img-fluid"  alt="">
-                                    </div>
-                                    <div class="pbmit-featured-wrapper">
-                                       <img src="images/client/client-white-01.png" class="img-fluid" alt="">
-                                    </div>
-                                 </div>
-                              </article>
-                           </div>
-                           <div class="swiper-slide">
-                              <article class="pbmit-client-style-1">
-                                 <div class="pbmit-client-wrapper pbmit-client-with-hover-img">
-                                    <h4 class="pbmit-hide">client 02</h4>
-                                    <div class="pbmit-client-hover-img">
-                                       <img src="images/client/client-hover-01.png" class="img-fluid"  alt="">
-                                    </div>
-                                    <div class="pbmit-featured-wrapper">
-                                       <img src="images/client/client-white-01.png" class="img-fluid" alt="">
-                                    </div>
-                                 </div>
-                              </article>
-                           </div>
-                           <div class="swiper-slide">
-                              <article class="pbmit-client-style-1">
-                                 <div class="pbmit-client-wrapper pbmit-client-with-hover-img">
-                                    <h4 class="pbmit-hide">client 01</h4>
-                                    <div class="pbmit-client-hover-img">
-                                       <img src="images/client/client-hover-01.png" class="img-fluid"  alt="">
-                                    </div>
-                                    <div class="pbmit-featured-wrapper">
-                                       <img src="images/client/client-white-01.png" class="img-fluid" alt="">
-                                    </div>
-                                 </div>
-                              </article>
-                           </div>
+                           <?php
+                           endforeach;
+                           ?>
                         </div>
                      </div>
                   </div>
@@ -547,84 +453,54 @@ $id = get_the_ID();
                <div class="row">
                   <div class="pbmit-heading text-center animation-style2 mb-5">
                      <h2 class="pbmit-title mb-5">News and Blogs</h2>
+                     
+                     <a href="<?php echo get_the_permalink(226);?>" class="pbmit-btn mt-4">
+                        <span>More</span>
+                     </a>
+                           
                   </div>
                </div>
                <div class="swiper-wrapper">
-                 <div class="swiper-slide" style="background: url(images/case-study/case-1.jpg);">
-                   <img src="images/case-study/case-1.jpg" class="entity-img" />
-                   <div class="content">
-                     <div class="pbmit-meta-container">
-                        <span class="pbmit-date-wrapper pbmit-meta-line">
-                        <span class="pbmit-post-date">May . 17 . 2022</span>
-                        </span>
-                        <span class="pbmit-meta-category pbmit-meta-line">
-                           <a href="#" rel="category tag">Corporate</a>
-                        </span>
-                     </div>
-                     <p class="title" data-swiper-parallax="-30%" data-swiper-parallax-scale=".7"><a href="#">Sed ut perspiciatis unde omnis iste natus</a></p>
+                  <?php
+                  $args=
+                  [
+                  
+                     'post_type' => 'Post',
+                     'post_status' => 'publish',
+                     'posts_per_page'=>-1,
+                     'order'=>'ASC',
+                     
+                  ];
+                  $loop = new WP_Query($args); 
+                  while($loop->have_posts()):
+                     $loop->the_post();
+                     $categories = get_the_category();
+                  ?>
+                  <div class="swiper-slide" style="background: url(<?php echo get_the_post_thumbnail_url($loop->ID, 'full');?>);">
+                     <img src="<?php echo get_the_post_thumbnail_url($loop->ID, 'full');?>" class="entity-img" />
+                     <div class="content">
+                        <div class="pbmit-meta-container">
+                           <span class="pbmit-date-wrapper pbmit-meta-line">
+                           <span class="pbmit-post-date"><?php echo  date("Y/m/d");?></span>
+                           </span>
+                           <span class="pbmit-meta-category pbmit-meta-line">
+                              <a href="#" rel="category tag">
+                              <?php 
+                                 if (!empty($categories)) {
+                                    foreach ($categories as $category) {
+                                          echo '<a href="' . esc_url(get_category_link($category->term_id)) . '" rel="category tag">' . esc_html($category->name) . '</a> ';
+                                    }
+                                 }
+                              ?>
+                              </a>
+                           </span>
+                        </div>
+                     <p class="title" data-swiper-parallax="-30%" data-swiper-parallax-scale=".7"><a href="<?php echo the_permalink();?>"><?php the_title()?></a></p>
                      <!-- <span class="caption" data-swiper-parallax="-20%">Case 1</span> -->
-                   </div>
-                 </div>
-                 <div class="swiper-slide" style="background: url(images/case-study/case-2.jpg);">
-                  <img src="images/case-study/case-2.jpg" class="entity-img" />
-                  <div class="content">
-                     <div class="pbmit-meta-container">
-                        <span class="pbmit-date-wrapper pbmit-meta-line">
-                        <span class="pbmit-post-date">May . 17 . 2022</span>
-                        </span>
-                        <span class="pbmit-meta-category pbmit-meta-line">
-                           <a href="#" rel="category tag">Corporate</a>
-                        </span>
                      </div>
-                    <p class="title" data-swiper-parallax="-30%" data-swiper-parallax-scale=".7"><a href="#">Sed ut perspiciatis unde omnis iste natus</a></p>
-                    <!-- <span class="caption" data-swiper-parallax="-20%">Case 2</span> -->
                   </div>
-                </div>
-                <div class="swiper-slide" style="background: url(images/case-study/case-3.jpg);">
-                  <img src="images/case-study/case-3.jpg" class="entity-img" />
-                  <div class="content">
-                     <div class="pbmit-meta-container">
-                        <span class="pbmit-date-wrapper pbmit-meta-line">
-                        <span class="pbmit-post-date">May . 17 . 2022</span>
-                        </span>
-                        <span class="pbmit-meta-category pbmit-meta-line">
-                           <a href="#" rel="category tag">Corporate</a>
-                        </span>
-                     </div>
-                    <p class="title" data-swiper-parallax="-30%" data-swiper-parallax-scale=".7"><a href="#">Sed ut perspiciatis unde omnis iste natus</a></p>
-                    <!-- <span class="caption" data-swiper-parallax="-20%">Case 3</span> -->
-                  </div>
-                </div>
-                <div class="swiper-slide" style="background: url(images/case-study/case-4.jpg);">
-                  <img src="images/case-study/case-4.jpg" class="entity-img" />
-                  <div class="content">
-                     <div class="pbmit-meta-container">
-                        <span class="pbmit-date-wrapper pbmit-meta-line">
-                        <span class="pbmit-post-date">May . 17 . 2022</span>
-                        </span>
-                        <span class="pbmit-meta-category pbmit-meta-line">
-                           <a href="#" rel="category tag">Corporate</a>
-                        </span>
-                     </div>
-                    <p class="title" data-swiper-parallax="-30%" data-swiper-parallax-scale=".7"><a href="#">Sed ut perspiciatis unde omnis iste natus</a></p>
-                    <!-- <span class="caption" data-swiper-parallax="-20%">Case 4</span> -->
-                  </div>
-                </div>
-                <div class="swiper-slide" style="background: url(images/case-study/case-2.jpg);">
-                  <img src="images/case-study/case-2.jpg" class="entity-img" />
-                  <div class="content">
-                     <div class="pbmit-meta-container">
-                        <span class="pbmit-date-wrapper pbmit-meta-line">
-                        <span class="pbmit-post-date">May . 17 . 2022</span>
-                        </span>
-                        <span class="pbmit-meta-category pbmit-meta-line">
-                           <a href="#" rel="category tag">Corporate</a>
-                        </span>
-                     </div>
-                    <p class="title" data-swiper-parallax="-30%" data-swiper-parallax-scale=".7"><a href="#">Sed ut perspiciatis unde omnis iste natus</a></p>
-                    <!-- <span class="caption" data-swiper-parallax="-20%">Case 5</span> -->
-                  </div>
-                </div>
+                  <?php endwhile; ?>
+                  <?php wp_reset_postdata();?>
                </div>
                
                <!-- If we need pagination -->
@@ -642,14 +518,14 @@ $id = get_the_ID();
                      <div class="col-md-12 col-lg-8">
                         <div class="">
                            <div class="pbmit-heading text-left bg-color-dark animation-style2">
-                              <h2 class="pbmit-title">Explore Exciting Career Opportunities</h2>
+                              <h2 class="pbmit-title"><?php echo get_field('careers_title',$id);?></h2>
                            </div>                              
-                           <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium</p>                        
+                           <p><?php echo get_field('careers_paragraph',$id);?></p>                        
                         </div>
                      </div>
                      <div class="col-md-12 col-lg-4">
                         <div class="portfolio-btn">
-                           <a href="#" class="pbmit-btn pbmit-btn-inline">
+                           <a href="<?php echo get_field('link_for_new_careers',$id);?>" class="pbmit-btn pbmit-btn-inline">
                               <span>Join with Us</span>
                            </a>
                         </div>
@@ -658,108 +534,6 @@ $id = get_the_ID();
                </div>
             </section>
          <!-- Page Content End -->
-
-         <!-- footer -->
-         <!-- <footer class="footer site-footer">
-            <div class="footer-wrap pbmit-footer-big-area">
-               <div class="container">
-                  <div class="row">
-                     <div class="col-md-12">								
-                        <div class="pbmit-footer-logo">
-                           <img src="images/logo.png" alt="Attorly Demo 1">
-                        </div>                        
-                     </div>			
-                  </div>
-               </div>
-            </div>
-            <div class="pbmit-footer-widget-area">
-               <div class="container">
-                  <div class="row">
-                     <div class="col-md-6 col-lg-3">
-                        <div class="widget pbmit-two-column-menu">
-                           <h2 class="widget-title">Quick Links</h2>
-                           <div class="textwidget">
-                              <ul>
-                                 <li><a href="#">Home</a></li>
-                                 <li><a href="#">About Us</a></li>
-                                 <li><a href="#">Awards</a></li>
-                                 <li><a href="#">Testimonials</a></li>
-                                 <li><a href="#">Case Studies</a></li>
-                                 <li><a href="#">Alumni</a></li>
-                              </ul>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-md-6 col-lg-2">
-                        <div class="pbmit-two-widget">
-                           <div class="widget">
-                              <h3 class="widget-title">Support</h3>
-                              <div class="textwidget">
-                                 <ul>
-                                    <li><a href="#">Facebook</a></li>
-                                    <li><a href="#">Twitter</a></li>
-                                    <li><a href="#">Linkedin</a></li>
-                                 </ul>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-md-6 col-lg-3">
-                        <div class="widget">
-                           <h3 class="widget-title">Contact</h3>
-                           <div class="pbmit-contact-widget-lines">
-                              <div class="pbmit-contact-widget-line widget-address">calcutta@foxandmandal.co.in</div>
-                              <div class="pbmit-contact-widget-line widget-phone">+ 91 33 2248 4843</div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-md-6 col-lg-4">
-                        <div class="widget">
-                           <h2>Stop informing.<br>Start inspiring.</h2>
-                           <p>Let’s Stay in Touch</p>
-                           <div class="pbmit-footer-newsletter">
-                              <input type="email" name="EMAIL" placeholder="Enter your Email" required="">
-                              <button type="submit" value="Sign up">
-                                 <i class="pbmit-base-icon-right-arrow-1"></i>
-                              </button>
-                          </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="pbmit-footer-section">
-               <div class="container">
-                  <div class="pbmit-footer-text-inner">
-                     <div class="row">
-                        <div class="col-md-6">
-                           <div class="pbmit-footer-copyright-text-area"> Copyright © 2022 
-                              <a href="#">Fox and Mandal</a>, All Rights Reserved.
-                           </div>
-                        </div>
-                        <div class="col-md-6">
-                           <div class=" pbmit-footer-menu-area">
-                              <div class="menu-copyright-menu-container">
-                                 <ul class="pbmit-footer-menu">
-                                    <li class="menu-item">
-                                       <a href="#">Services</a>
-                                    </li>
-                                    <li class="menu-item">
-                                       <a href="#">Blogs</a>
-                                    </li>
-                                    <li class="menu-item">
-                                       <a href="#">Careers</a>
-                                    </li>
-                                 </ul>
-                              </div>
-                           </div>
-                        </div>			
-                     </div>
-                  </div>
-               </div>
-            </div>	
-         </footer> -->
-         <!-- footer End -->
          
 <?php
 get_footer();

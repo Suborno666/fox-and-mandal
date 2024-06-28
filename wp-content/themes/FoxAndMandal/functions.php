@@ -11,7 +11,6 @@ add_theme_support('post-thumbnails');
 }
 add_action('after_setup_theme','fox_and_mandal_theme_supports');
 
-
 function fox_and_mandal_enqueue_links(){
 
     wp_enqueue_style('css-bootstrap',get_template_directory_uri().'/css/bootstrap.min.css',[],'','all');
@@ -60,6 +59,27 @@ function fox_and_mandal_enqueue_links(){
     wp_enqueue_script('js-rs6',get_template_directory_uri().'/revolution/rs6.min.js',[],'',true);
 }
 add_action('wp_enqueue_scripts','fox_and_mandal_enqueue_links');
+
+
+/**
+ * Creating Header Menu
+ */
+
+function custom_menu() {
+    register_nav_menu('header-menu-about',__( 'Header Menu About' ));
+    register_nav_menu('header-menu-insights',__( 'Header Menu Insights' ));
+    register_nav_menu('header-menu-careers',__( 'Header Menu Careers' ));
+    register_nav_menu('footer-menu',__( 'Footer Menu' ));
+    register_nav_menu('socials-menu',__( 'Socials Menu' ));
+
+}
+add_action( 'init', 'custom_menu' );
+
+
+/**
+ * 
+ * Custom Posts
+ */
 
 add_action('init', 'custom_post');
 function custom_post() {
@@ -128,7 +148,7 @@ function custom_post() {
             'public'=>true,
             'has_archive'=>true,
             'rewrite'=>['slug'=>'content'],
-            'supports'=>['editor'],
+            'supports'=>['title','editor'],
         ]
 
     );

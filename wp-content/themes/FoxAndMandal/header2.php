@@ -7,10 +7,10 @@
       <meta name="robots" content="noindex, follow">
       <meta name="description" content="">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png"> 
+      <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">      
       <?php
-        wp_head();
-      ?>     
+      wp_head();
+      ?>
    </head>
    <body>
       <!-- page wrapper -->
@@ -40,18 +40,18 @@
                         </ul>
                      </div>   
                   </li>
-                  <li class="menu_list"><img src="<?php echo get_template_directory_uri().'/images/practice.png'?>" alt="">
+                  <li class="menu_list"><img src="images/practice.png" alt="">
                      <div class="subWrapF">
                         <a href="#">Practice Areas</a>
                      </div>
                   </li>
-                  <li class="menu_list"><img src="<?php echo get_template_directory_uri().'/images/teamIc.png'?>" alt="">
+                  <li class="menu_list"><img src="images//teamIc.png" alt="">
                      <div class="subWrapF">
                         <a href="#">Our Team</a>
                      </div>
                   </li>
                   <li class="menu_list has-sub">
-                     <img src="<?php echo get_template_directory_uri().'/images/insights.png'?>" alt="">
+                     <img src="images/insights.png" alt="">
                      <div class="subWrapF">
                         <a href="#">Insights</a>
                         <ul class="subwrapUl">
@@ -62,7 +62,7 @@
                      </div>                  
                   </li>
                   <li class="menu_list has-sub">
-                     <img src="<?php echo get_template_directory_uri().'/images/careerIc.png'?>" alt="">
+                     <img src="images/careerIc.png" alt="">
                      <div class="subWrapF">
                         <a href="#">Career</a>
                         <ul class="subwrapUl">
@@ -72,7 +72,7 @@
                      </div> 
                   </li>
                   <li class="menu_list">
-                     <img src=<?php echo get_template_directory_uri()."/images/contact.png"?> alt="">
+                     <img src="images/contact.png" alt="">
                      <div class="subWrapF">
                         <a href="#">Contact</a>
                      </div>
@@ -150,7 +150,7 @@
                               <div class="site-branding pbmit-logo-area">
                                  <h1 class="site-title">
                                     <a href="#">
-                                       <img class="logo-img" src="<?php echo get_template_directory_uri()."/images/F_M-Logo.png"?>" alt="attorly">
+                                       <img class="logo-img" src=<?php echo get_template_directory_uri()."/images/F_M-Logo.png"?> alt="attorly">
                                     </a>
                                  </h1>
                               </div>
@@ -349,51 +349,41 @@
            </div> -->
            <div class="bannerSec hero-slider hero-style">
             <div class="swiper-container">
-              <div class="swiper-wrapper">   
-               <?php 
-               $arr = get_field('banner_images','option');
-               // echo gettype($arr);
-               // echo count($arr);
-               foreach($arr as $element):
-                  // print_r($element);
-                  // echo "<pre>";
-      
-               ?>
-                  <div class="swiper-slide">
-                     <div class="slide-inner slide-bg-image" style="background-image: url(<?php echo $element['banner_image']['url'];?>);">
-                        <div class="container">
-                           <div data-swiper-parallax="300" class="slide-title">
-                              <h4>Fox & Mandal</h4>        
-                           </div>
-                           <div data-swiper-parallax="400" class="slide-title">
-                              <h2><?php echo $element['heading'];?></h2>
-                           </div>
-                           <div data-swiper-parallax="400" class="slide-text">
-                              <p><?php echo $element['paragraph'];?></p>
-                           </div>
-                        </div>
-                     </div>
-                     <!-- end slide-inner -->
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <div class="slide-inner slide-bg-image" style="background-image: url(images/banner/banner-1.jpg);">
+                    <div class="container">
+                      <div data-swiper-parallax="300" class="slide-title">
+                        <h4>Fox & Mandal</h4>        
+                      </div>
+                      <div data-swiper-parallax="400" class="slide-title">
+                        <h2>Banking and Finance</h2>
+                      </div>
+                      <div data-swiper-parallax="400" class="slide-text">
+                        <p>F&M believes that our clients deserve a service that is both practical and commercially sound.</p>
+                      </div>
+                    </div>
                   </div>
-                  <!-- end swiper-slide -->
-               <?php
-               endforeach;
-               ?>
-                  <!-- <div class="swiper-slide">
-                     <div class="slide-inner slide-bg-image"  style="background-image: url(images/banner/banner-2.jpg);">
-                        <div class="container">
-                           <div data-swiper-parallax="300" class="slide-title">
-                           <h4>Fox & Mandal</h4>        
-                           </div>
-                           <div data-swiper-parallax="400" class="slide-title">
-                           <h2>Corporate and Commercial</h2>
-                           </div>
-                           <div data-swiper-parallax="400" class="slide-text">
-                           <p>Fox & Mandal provides end-to-end services for the entire business life cycle of a venture</p>
-                           </div>
+                  <!-- end slide-inner -->
+                </div>
+                <!-- end swiper-slide -->
+          
+                <div class="swiper-slide">
+                  <div class="slide-inner slide-bg-image"  style="background-image: url(images/banner/banner-2.jpg);">
+                     <div class="container">
+                        <div data-swiper-parallax="300" class="slide-title">
+                          <h4>Fox & Mandal</h4>        
+                        </div>
+                        <div data-swiper-parallax="400" class="slide-title">
+                          <h2>Corporate and Commercial</h2>
+                        </div>
+                        <div data-swiper-parallax="400" class="slide-text">
+                          <p>Fox & Mandal provides end-to-end services for the entire business life cycle of a venture</p>
                         </div>
                      </div>
-                  </div> -->
+                  </div>
+                  <!-- end slide-inner -->
+                </div>
                 <!-- end swiper-slide -->
                 <!-- <div class="swiper-slide">
                   <div class="slide-inner slide-bg-image"  style="background-image: url(images/banner/banner-3.jpg);">
@@ -410,19 +400,19 @@
                            </div>
                         </div>
                      </div>
-                  </div> -->
+                  </div>
                   <!-- end slide-inner -->
-                  <!-- </div> -->
-                  <!-- end swiper-slide -->
-                  <!-- </div> -->
-                  <!-- end swiper-wrapper -->
-               
-                  <!-- swipper controls -->
-                  <div class="swiper-pagination"></div>
-                  <div class="swiper-button-next"></div>
-                  <div class="swiper-button-prev"></div>
-               </div>
+                </div> -->
+                <!-- end swiper-slide -->
+              </div>
+              <!-- end swiper-wrapper -->
+          
+              <!-- swipper controls -->
+              <div class="swiper-pagination"></div>
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
             </div>
+         </div>
           <!-- end of hero slider -->
          </header>
          <!-- Header Main Area End Here -->

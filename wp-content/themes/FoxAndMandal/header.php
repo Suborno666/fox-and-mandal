@@ -288,14 +288,15 @@
                         </div>
                      </div>
                      <!-- end slide-inner -->
+                     <div class="swiper-pagination"></div>
+                     <div class="swiper-button-next"></div>
+                     <div class="swiper-button-prev"></div>
                   </div>
                   <!-- end swiper-slide -->
                   <?php
                      endforeach;
                   ?>
-                  <div class="swiper-pagination"></div>
-                  <div class="swiper-button-next"></div>
-                  <div class="swiper-button-prev"></div>
+                  
                </div>
             </div>
          <?php
@@ -311,7 +312,7 @@
             
          <?php endif; ?>
          <!-- Title Bar End-->
-         <?php if(is_page(226)):?>
+         <?php if(is_page(226)|| is_archive()):?>
             <div class="pbmit-title-bar-wrapper pbmit-title-bar-style-1">
                <div class="container">
                   <div class="pbmit-title-bar-content">

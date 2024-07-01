@@ -264,44 +264,13 @@
                </ul>
             </div>
             <?php
-            if(is_front_page()): 
+               if(is_front_page()): 
             ?>
-         <div class="bannerSec hero-slider hero-style">
-            <div class="swiper-container">
-              <div class="swiper-wrapper">   
-                  <?php 
-                     $arr = get_field('banner_images','option');
-                     foreach($arr as $element):
-                  ?>
-                  <div class="swiper-slide">
-                     <div class="slide-inner slide-bg-image" style="background-image: url(<?php echo $element['banner_image']['url'];?>);">
-                        <div class="container">
-                           <div data-swiper-parallax="300" class="slide-title">
-                              <h4>Fox & Mandal</h4>        
-                           </div>
-                           <div data-swiper-parallax="400" class="slide-title">
-                              <h2><?php echo $element['heading'];?></h2>
-                           </div>
-                           <div data-swiper-parallax="400" class="slide-text">
-                              <p><?php echo $element['paragraph'];?></p>
-                           </div>
-                        </div>
-                     </div>
-                     <!-- end slide-inner -->
-                     <div class="swiper-pagination"></div>
-                     <div class="swiper-button-next"></div>
-                     <div class="swiper-button-prev"></div>
-                  </div>
-                  <!-- end swiper-slide -->
-                  <?php
-                     endforeach;
-                  ?>
-                  
-               </div>
-            </div>
-         <?php
-         endif;
-         ?>
+            <?php get_template_part('template-parts/frontPage')?>
+
+            <?php
+            endif;
+            ?>
           <!-- end of hero slider -->
       </header>
       <!-- Header Main Area End Here -->
@@ -313,24 +282,5 @@
          <?php endif; ?>
          <!-- Title Bar End-->
          <?php if(is_page(226)|| is_archive()):?>
-            <div class="pbmit-title-bar-wrapper pbmit-title-bar-style-1">
-               <div class="container">
-                  <div class="pbmit-title-bar-content">
-                     <div class="pbmit-title-bar-content-inner">
-                        <div class="pbmit-tbar">
-                           <div class="pbmit-tbar-inner container">
-                              <h1 class="pbmit-tbar-title">Blogs</h1>
-                           </div>
-                        </div>
-                        <div class="pbmit-breadcrumb">
-                           <div class="pbmit-breadcrumb-inner">
-                              <span><a title="" href="#" class="home"><span>Fox & Mondal</span></a></span>
-                              <span class="sep"><i class="fa fa-long-arrow-right"></i></span>
-                              <span><span class="post-root post post-post current-item">Blogs</span></span>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
+            <?php get_template_part('template-parts/archive')?>
          <?php endif; ?>

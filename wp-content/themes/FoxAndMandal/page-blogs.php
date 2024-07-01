@@ -60,13 +60,22 @@ get_header()
 							<aside class="sidebar-right">
 
 								<h4 class="sidebar-title">//&nbsp;Search</h4>
-								<div class="search-box search-box-blog"   id="s-cover">
-									<input type="text" name="" id="" placeholder="Search">
-									<button>
-										<div id="s-circle"></div>
-										<span></span>
-									</button>
+								<div class="search-box search-box-blog" id="s-cover">
+									<form role="search" method="get" class="search-form" action="<?php echo home_url( '/' ); ?>">
+										<label>
+											<input type="search" class="search-field" placeholder="Search" value="<?php echo get_search_query() ?>" name="s" title="Search for:" />
+										</label>
+										<button type="submit">
+											<div id="s-circle"></div>
+											<span></span>
+										</button>
+									</form>
 								</div>
+								<?php
+								
+								?>
+								
+
 								<div class="category-container">
 									<h4 class="sidebar-title">//&nbsp;Categories</h4>
 									<ul class="sidebar-list">
@@ -121,37 +130,18 @@ get_header()
 								<div class="archives-container">
 									<h4 class="sidebar-title">//&nbsp;Archives</h4>
 									<div class="card-2-container">
-										<div class="card-2">
-											<div class="card-2-img">
-												<img src="images/avatar/img-02.jpg" alt="">
-											</div>										
-											<div class="card-2-info">
-												<h5>John Doe</h5>
-												<p>Libero justo laoreet sit amet 
-													cursus sit amet dictum sit.</p>
+										
+									<?php 
+										if ( is_active_sidebar( 'sidebar-1' ) ) : 
+										?>
+											<div id="secondary" class="widget-area" role="complementary">
+												<?php 
+												dynamic_sidebar( 'sidebar-1' ); 
+												?>
 											</div>
-										</div>
-										<div class="card-2">
-											<div class="card-2-img">
-												<img src="images/avatar/img-01.jpg" alt="">
-											</div>										
-											<div class="card-2-info">
-												<h5>John Doe</h5>
-												<p>Libero justo laoreet sit amet 
-													cursus sit amet dictum sit.</p>
-											</div>
-										</div>
-										<div class="card-2">
-											<div class="card-2-img">
-												<img src="images/avatar/img-02.jpg" alt="">
-											</div>										
-											<div class="card-2-info">
-												<h5>John Doe</h5>
-												<p>Libero justo laoreet sit amet 
-													cursus sit amet dictum sit.</p>
-											</div>
-										</div>
-											
+										<?php 
+										endif; 
+									?>
 									</div>
 								</div>
 							</aside>

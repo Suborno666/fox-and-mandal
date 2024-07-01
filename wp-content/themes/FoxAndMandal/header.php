@@ -15,92 +15,33 @@
    <body>
       <!-- page wrapper -->
       <div class="page-wrapper">
-
          <!-- Header Main Area -->
          <!-- Sidebar Menu -->
          <div class="sidebarWrap">
             <div class="sideBarList row">
                
-               <ul class="listMwrap col-lg-6">                
-                  <li class="menu_list">
-                     <img src="<?php echo get_template_directory_uri().'/images/homeIc.png'?>" alt=""> 
+            <ul class="listMwrap col-lg-6"> 
+               <?php
+                  $menus = get_field('add_menu','option');
+                  foreach($menus as $menu):
+                  ?>
+                  <li class="menu_list <?php echo ($menu['child_menu']>0)?'has-sub':''; ?>" >
+                     <img src="<?php echo $menu['parent_logo'];?>" alt=""> 
                      <div class="subWrapF">
-                        <a href="#">Home</a>
+                        <a href="<?php echo $menu['menu_label'];?>"><?php echo $menu['menu_label'];?></a>
+                  <?php if($menu['child_menu']>0): ?>
+                           <ul class="subwrapUl">
+                              <?php foreach($menu['child_menu'] as $childMenu):?>
+                                 <li><a href="<?php echo $childMenu['child_url']?>"><?php echo $childMenu['child_label']?></a></li>
+                              <?php endforeach ?>
+                           </ul>
+                  <?php endif ?>
                      </div>
                   </li>
-                  <li class="menu_list has-sub">
-                     <img src="<?php echo get_template_directory_uri().'/images/about.png'?>" alt="">
-                     <div class="subWrapF">
-                        <a href="#">About</a>
-                        <ul class="subwrapUl">
-                           <?php
-                           wp_nav_menu(
-                              [
-                                 'name'=>'Header Menu About',
-                                 'container'=>'',
-                                 'theme_location'=>'header-menu-about'
-                              ]
-                           )
-                           ?>
-                        </ul>
-                     </div>   
-                  </li>
-                  <li class="menu_list">
-                     <img src="<?php echo get_template_directory_uri().'/images/practice.png'?>" alt="">
-                     <div class="subWrapF">
-                        <a href="#">Practice Areas</a>
-                     </div>
-                  </li>
-                  <li class="menu_list">
-                     <img src="<?php echo get_template_directory_uri().'/images/teamIc.png'?>" alt="">
-                     <div class="subWrapF">
-                        <a href="#">Our Team</a>
-                     </div>
-                  </li>
-                  <li class="menu_list has-sub">
-                     <img src="<?php echo get_template_directory_uri().'/images/insights.png'?>" alt="">
-                     <div class="subWrapF">
-                        <a href="#">Insights</a>
-                        <ul class="subwrapUl">
-                        <?php
-                           wp_nav_menu(
-                              [
-                                 'name'=>'Header Menu Insights',
-                                 'container'=>'',
-                                 'theme_location'=>'header-menu-insights'
-                              ]
-                           )
-                           ?>
-                        </ul>
-                     </div>                  
-                  </li>
-                  <li class="menu_list has-sub">
-                     <img src="<?php echo get_template_directory_uri().'/images/careerIc.png'?>" alt="">
-                     <div class="subWrapF">
-                        <a href="#">Career</a>
-                        <ul class="subwrapUl">
-                        <?php
-                           wp_nav_menu(
-                              [
-                                 'name'=>'Header Menu Careers',
-                                 'container'=>'',
-                                 'theme_location'=>'header-menu-careers'
-                              ]
-                           )
-                           ?>
-                        </ul>
-                     </div> 
-                  </li>
-                  <li class="menu_list">
-                     <img src=<?php echo get_template_directory_uri()."/images/contact.png"?> alt="">
-                     <div class="subWrapF">
-                        <a href="#">Contact</a>
-                     </div>
-                  </li>  
-               </ul>
-               <!-- <ul class="listMwrap col-lg-6">   -->
-                  
-               <!-- </ul> -->
+                  <?php   
+                  endforeach;
+               ?>               
+            </ul>
                <div class="col-lg-6">
                   <div class="formWrapFx">
                      <h3>Let us help you better with your queries.</h3>
@@ -176,7 +117,7 @@
                            <div class="d-flex align-items-center justify-content-between header-content">
                               <div class="site-branding pbmit-logo-area">
                                  <h1 class="site-title">
-                                    <a href="<?php echo esc_url(home_url('/'))?>">
+                                    <a href="<?php echo get_field('logo_url','option');?>">
                                        <img class="logo-img" src="<?php echo get_field('logo','option')['url'];?>" alt="attorly">
                                     </a>
                                  </h1>
@@ -365,47 +306,30 @@
       <!-- Header Main Area End Here -->
          <!-- Title Bar -->
          <?php if(is_single()):?>
+
+            <?php get_template_part('template-parts/single')?>
+            
+         <?php endif; ?>
+         <!-- Title Bar End-->
+         <?php if(is_page(226)):?>
             <div class="pbmit-title-bar-wrapper pbmit-title-bar-style-1">
                <div class="container">
                   <div class="pbmit-title-bar-content">
                      <div class="pbmit-title-bar-content-inner">
                         <div class="pbmit-tbar">
                            <div class="pbmit-tbar-inner container">
-                              <h1 class="pbmit-tbar-title">Blog Details</h1>
+                              <h1 class="pbmit-tbar-title">Blogs</h1>
                            </div>
                         </div>
                         <div class="pbmit-breadcrumb">
                            <div class="pbmit-breadcrumb-inner">
                               <span><a title="" href="#" class="home"><span>Fox & Mondal</span></a></span>
                               <span class="sep"><i class="fa fa-long-arrow-right"></i></span>
-                              <span><span class="post-root post post-post current-item">Blog Details</span></span>
+                              <span><span class="post-root post post-post current-item">Blogs</span></span>
                            </div>
                         </div>
                      </div>
                   </div>
                </div>
             </div>
-         <?php endif; ?>
-         <!-- Title Bar End-->
-         <?php if(is_page(226)):?>
-            <div class="pbmit-title-bar-wrapper pbmit-title-bar-style-1">
-			<div class="container">
-				<div class="pbmit-title-bar-content">
-					<div class="pbmit-title-bar-content-inner">
-						<div class="pbmit-tbar">
-							<div class="pbmit-tbar-inner container">
-								<h1 class="pbmit-tbar-title">Blogs</h1>
-							</div>
-						</div>
-						<div class="pbmit-breadcrumb">
-							<div class="pbmit-breadcrumb-inner">
-								<span><a title="" href="#" class="home"><span>Fox & Mondal</span></a></span>
-								<span class="sep"><i class="fa fa-long-arrow-right"></i></span>
-								<span><span class="post-root post post-post current-item">Blogs</span></span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
          <?php endif; ?>

@@ -153,4 +153,8 @@ function custom_post() {
 
     );
 }
+
+/**
+ * Adding Taxinomy
+ */
 ?>

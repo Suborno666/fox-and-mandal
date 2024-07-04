@@ -1,3 +1,27 @@
+<div class="pbmit-slider-social">
+    <ul class="pbmit-social-links">
+        <li class="pbmit-social-li pbmit-social-facebook">
+            <a href="#" target="_blank">
+            <span><i class="pbmit-base-icon-facebook-squared"></i></span>
+            </a>
+        </li>
+        <li class="pbmit-social-li pbmit-social-twitter">
+            <a href="#" target="_blank">
+            <span><i class="pbmit-base-icon-twitter"></i></span>
+            </a>
+        </li>
+        <li class="pbmit-social-li pbmit-social-instagram">
+            <a href="#" target="_blank">
+            <span><i class="pbmit-base-icon-instagram"></i></span>
+            </a>
+        </li>
+        <li class="pbmit-social-li pbmit-social-youtube">
+            <a href="#" target="_blank">
+            <span><i class="pbmit-base-icon-youtube-play"></i></span>
+            </a>
+        </li>
+    </ul>
+</div>
 <div class="bannerSec hero-slider hero-style">
     <div class="swiper-container">
         <div class="swiper-wrapper">   

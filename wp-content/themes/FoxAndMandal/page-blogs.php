@@ -1,5 +1,7 @@
 <?php
-get_header()
+get_header();
+global $wp;
+$current_url = home_url(add_query_arg(array(), $wp->request)); 
 ?>
 		<!-- Page Content -->
 		<div class="page-content about-light-section1">		
@@ -9,17 +11,25 @@ get_header()
 					<div class="row">
 						<div class="col-md-8">							
 							<div class="row g-3">
-								<?php
+							<?php
+								$search_key = isset($_GET['SearchKey']) ? sanitize_text_field($_GET['SearchKey']) : '';
+								$Search_Args = [
+									's' => $search_key,
+									'post_type' => 'Post',
+								];
+								
 								$args=
 								[
-								
 									'post_type' => 'Post',
 									'post_status' => 'publish',
 									'posts_per_page'=>-1,
 									'order'=>'ASC',
-									
 								];
-								$loop = new WP_Query($args); 
+								if($search_key=''){
+									$loop = new WP_Query($args);
+								}else{
+									$loop = new WP_Query($Search_Args);
+								}
 								while($loop->have_posts()):
 									$loop->the_post();
 								?>
@@ -40,7 +50,7 @@ get_header()
 													<a href="<?php the_permalink();?>"><?php the_title()?></a>
 													</h3>
 													<div class="pbminfotech-box-desc-text">
-													<?php the_excerpt();?>	
+													<?php echo wp_trim_words(get_the_excerpt(),15);?>	
 													</div>
 													<a href="#" class="pbmit-btn pbmit-btn-inline">
 													<span>Read More</span>
@@ -52,6 +62,7 @@ get_header()
 								</div>
 								<?php
 								endwhile;
+								wp_reset_postdata();
 								?>
 	
 							</div>							
@@ -61,9 +72,9 @@ get_header()
 
 								<h4 class="sidebar-title">//&nbsp;Search</h4>
 								<div class="search-box search-box-blog" id="s-cover">
-									<form role="search" method="get" class="search-form" action="<?php echo home_url( '/' ); ?>">
+									<form role="search" method="get" class="search-form" action="<?php echo esc_url( $current_url ); ?>">
 										<label>
-											<input type="search" class="search-field" placeholder="Search" value="<?php echo get_search_query() ?>" name="s" title="Search for:" />
+											<input type="search" class="search-field" placeholder="Search" value="<?php echo get_search_query() ?>" name="SearchKey" title="Search for:" />
 										</label>
 										<button type="submit">
 											<div id="s-circle"></div>
@@ -71,9 +82,6 @@ get_header()
 										</button>
 									</form>
 								</div>
-								<?php
-								
-								?>
 								
 
 								<div class="category-container">

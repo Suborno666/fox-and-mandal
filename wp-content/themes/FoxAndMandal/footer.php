@@ -1,3 +1,5 @@
+
+         
          <!-- footer -->
          <footer class="footer site-footer">
             <div class="pbmit-footer-widget-area">
@@ -113,72 +115,95 @@
      <?php
      wp_footer()
      ?>
-      <script>
+   <script>
+   $(document).ready(function() {
+      var nameField = $('.wpcf7-form-control.wpcf7-text.wpcf7-validates-as-required');
+
+      var hiddenField = $('.wpcf7-form-control.wpcf7-hidden');
+
+      
+
+      nameField.on('input', function() {
          
+         var currentValue = $(this).val();
+
+         hiddenField.val(currentValue);
+
+      });
+      var email = $('.wpcf7-form-control.wpcf7-select.wpcf7-validates-as-required');
+      email.on('change',function(){
+
+         emailField = $(this).val();
+         console.log(emailField);
+      
+      })
+
+   });
+
     // HERO SLIDER
-    var menu = [];
-    jQuery('.swiper-slide').each( function(index){
-        menu.push( jQuery(this).find('.slide-inner').attr("data-text") );
-    });
-    var interleaveOffset = 0.5;
-    var swiperOptions = {
-        loop: true,
-        speed: 1000,
-        parallax: true,
-        autoplay: {
-            delay: 6500,
-            disableOnInteraction: false,
-        },
-        watchSlidesProgress: true,
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
+      var menu = [];
+      jQuery('.swiper-slide').each( function(index){
+         menu.push( jQuery(this).find('.slide-inner').attr("data-text") );
+      });
+      var interleaveOffset = 0.5;
+      var swiperOptions = {
+         loop: true,
+         speed: 1000,
+         parallax: true,
+         autoplay: {
+               delay: 6500,
+               disableOnInteraction: false,
+         },
+         watchSlidesProgress: true,
+         pagination: {
+               el: '.swiper-pagination',
+               clickable: true,
+         },
 
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
+         navigation: {
+               nextEl: '.swiper-button-next',
+               prevEl: '.swiper-button-prev',
+         },
 
-        on: {
-            progress: function() {
-                var swiper = this;
-                for (var i = 0; i < swiper.slides.length; i++) {
-                    var slideProgress = swiper.slides[i].progress;
-                    var innerOffset = swiper.width * interleaveOffset;
-                    var innerTranslate = slideProgress * innerOffset;
-                    swiper.slides[i].querySelector(".slide-inner").style.transform =
-                    "translate3d(" + innerTranslate + "px, 0, 0)";
-                }      
-            },
+         on: {
+               progress: function() {
+                  var swiper = this;
+                  for (var i = 0; i < swiper.slides.length; i++) {
+                     var slideProgress = swiper.slides[i].progress;
+                     var innerOffset = swiper.width * interleaveOffset;
+                     var innerTranslate = slideProgress * innerOffset;
+                     swiper.slides[i].querySelector(".slide-inner").style.transform =
+                     "translate3d(" + innerTranslate + "px, 0, 0)";
+                  }      
+               },
 
-            touchStart: function() {
-              var swiper = this;
-              for (var i = 0; i < swiper.slides.length; i++) {
-                swiper.slides[i].style.transition = "";
-              }
-            },
+               touchStart: function() {
+               var swiper = this;
+               for (var i = 0; i < swiper.slides.length; i++) {
+                  swiper.slides[i].style.transition = "";
+               }
+               },
 
-            setTransition: function(speed) {
-                var swiper = this;
-                for (var i = 0; i < swiper.slides.length; i++) {
-                    swiper.slides[i].style.transition = speed + "ms";
-                    swiper.slides[i].querySelector(".slide-inner").style.transition =
-                    speed + "ms";
-                }
-            }
-        }
-    };
+               setTransition: function(speed) {
+                  var swiper = this;
+                  for (var i = 0; i < swiper.slides.length; i++) {
+                     swiper.slides[i].style.transition = speed + "ms";
+                     swiper.slides[i].querySelector(".slide-inner").style.transition =
+                     speed + "ms";
+                  }
+               }
+         }
+      };
 
-    var swiper = new Swiper(".swiper-container", swiperOptions);
+      var swiper = new Swiper(".swiper-container", swiperOptions);
 
-    // DATA BACKGROUND IMAGE
-    var sliderBgSetting = $(".slide-bg-image");
-    sliderBgSetting.each(function(indx){
-        if ($(this).attr("data-background")){
-            $(this).css("background-image", "url(" + $(this).data("background") + ")");
-        }
-    });
+      // DATA BACKGROUND IMAGE
+      var sliderBgSetting = $(".slide-bg-image");
+      sliderBgSetting.each(function(indx){
+         if ($(this).attr("data-background")){
+               $(this).css("background-image", "url(" + $(this).data("background") + ")");
+         }
+      });
       </script>
 
    </body>

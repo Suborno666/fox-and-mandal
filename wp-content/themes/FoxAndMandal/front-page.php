@@ -233,12 +233,20 @@ $id = get_the_ID();
                   
                      <div class="swiper teamSwiper">
                         <div class="swiper-wrapper">
-                           
-                           <!-- Slide1 -->
-                           <?php 
-                           $data = get_field('advocate',$id);
 
-                           foreach($data as $advocate):
+                           <?php 
+                           $args=
+                           [
+                           
+                              'post_type' => 'advocates',
+                              'post_status' => 'publish',
+                              'posts_per_page'=>-1,
+                              'order'=>'ASC',
+                              
+                           ];
+                           $advocate = new WP_Query($args);
+                           while($advocate->have_posts()):
+                              $advocate->the_post();
                            ?>
                            <div class="swiper-slide">
                               <article class="pbmit-team-style-2">
@@ -277,9 +285,22 @@ $id = get_the_ID();
                                     <div class="pbminfotech-box-content">
                                        <div class="pbminfotech-box-content-inner">
                                           <h3 class="pbmit-team-title">
-                                             <a href="#"><?php echo $advocate->post_title; ?></a></h3>
+                                             <a href="#"><?php the_title(); ?></a></h3>
                                           <div class="pbminfotech-team-position">
-                                             <div class="pbminfotech-box-team-position"><?php echo get_field('advocate_profession',$advocate->ID); ?></div>
+                                             <div class="pbminfotech-box-team-position">
+                                             <?php
+
+                                             $terms = get_the_terms($advocate->ID, 'advocate_designation');
+                                             if ($terms && !is_wp_error($terms)) {
+                                                   $term_names = array();
+                                                   foreach ($terms as $term) {
+                                                      $term_names[] = $term->name;
+                                                   }
+                                                   echo implode(', ', $term_names);
+                                             } else {
+                                                   echo 'No designation';
+                                             }
+                                             ?>                                             </div>
                                           </div>
                                        </div>
                                     </div>
@@ -287,8 +308,8 @@ $id = get_the_ID();
                               </article>
                            </div>
                            <?php
-                           endforeach;
-                           // wp_reset_postdata();
+                           endwhile;
+                           wp_reset_postdata();
                            ?>
                         </div>
                         

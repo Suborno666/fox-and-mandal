@@ -45,46 +45,23 @@
                <div class="col-lg-6">
                   <div class="formWrapFx">
                      <h3>Let us help you better with your queries.</h3>
-                     <form >
-                        <div class="row">
-                              <div class="col-xl-12">
-                                 <div class="comment-form__input-box">
-                                    <input type="text" placeholder="Your name" name="name">
-                                 </div>
-                              </div>
-                              <div class="col-xl-12">
-                                 <div class="comment-form__input-box">
-                                    <input type="number" placeholder="Contact Number" name="number">
-                                 </div>
-                              </div>
-                              <div class="col-xl-12">
-                                 <div class="comment-form__input-box">
-                                    <input type="email" placeholder="Email address" name="email">
-                                 </div>
-                              </div>
-                              
-                              
-                              <div class="col-xl-12">
-                                 <div class="comment-form__input-box">
-                                    <select>
-                                       <option>Select Enquiry</option>
-                                       <option>Corporate Enquiry</option>
-                                       <option>General Enquiry</option>
-                                    </select>
-                                 </div>
-                              </div>
-                        </div>
-                        <div class="row">
-                              <div class="col-xl-12">
-                                 <div class="comment-form__input-box text-message-box">
-                                    <textarea name="message" placeholder="Write a message"></textarea>
-                                 </div>
-                                 <div class="comment-form__btn-box">
-                                    <button type="submit" class="thm-btn comment-form__btn">Submit</button>
-                                 </div>
-                              </div>
-                        </div>
-                     </form>
+                     <?php
+                        $p = do_shortcode('[contact-form-7 id="1d26938" title="Header Contact Form"]');
+                        echo $p;                     
+                        // $emails = get_field('email_fields', 'option');
+                        // var_dump($emails); 
+                     ?>
+                     <!-- <form>
+                        
+                     </form> -->
+                  </div>
+                  <div>
+                     <?php
+                     global $field_output;
+                     if (!empty($field_output)) {
+                         echo $field_output; 
+                     }
+                     ?>
                   </div>
                   <div class="quickF">
                      <h4>Get in Touch</h4>
@@ -240,28 +217,6 @@
             </div>
             <!-- pbmit-header-overlay -->
             <div class="pbmit-slider-social">
-               <ul class="pbmit-social-links">
-                  <li class="pbmit-social-li pbmit-social-facebook">
-                     <a href="#" target="_blank">
-                        <span><i class="pbmit-base-icon-facebook-squared"></i></span>
-                     </a>
-                  </li>
-                  <li class="pbmit-social-li pbmit-social-twitter">
-                     <a href="#" target="_blank">
-                        <span><i class="pbmit-base-icon-twitter"></i></span>
-                     </a>
-                  </li>
-                  <li class="pbmit-social-li pbmit-social-instagram">
-                     <a href="#" target="_blank">
-                        <span><i class="pbmit-base-icon-instagram"></i></span>
-                     </a>
-                  </li>
-                  <li class="pbmit-social-li pbmit-social-youtube">
-                     <a href="#" target="_blank">
-                        <span><i class="pbmit-base-icon-youtube-play"></i></span>
-                     </a>
-                  </li>
-               </ul>
             </div>
             <?php
                if(is_front_page()): 

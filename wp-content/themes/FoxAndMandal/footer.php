@@ -116,6 +116,14 @@
      wp_footer()
      ?>
    <script>
+
+   $(document).ready(()=>{
+      $('reset').on('click',function(){
+         $("#advocate_office_location").val('').trigger('change');
+         $("#advocate_practice_area#advocate_designation").val('').trigger('change');
+      })
+   })
+
    $(document).ready(function() {
       var nameField = $('.wpcf7-form-control.wpcf7-text.wpcf7-validates-as-required');
 

@@ -19,7 +19,7 @@
                         <form class="row g-3" role="search" method="get" action="<?php echo esc_url( $current_url ); ?>">
 
                             <div class="col-md-12">
-                                <input type="text" class="form-control" placeholder="Search" value="<?php echo get_search_query() ?>" name="SearchKey" title="Search for:" />
+                                <input type="text" class="form-control" placeholder="Search" value="<?php echo isset($_GET['SearchKey'])?$_GET['SearchKey']:''; ?>" name="SearchKey" title="Search for:" />
                             </div>
 
                             <div class="col-md-3">
@@ -88,7 +88,7 @@
                             <div class="col-md-3">
                                 <div class="form-btn-group">
                                     <button class="form-btn-dark">Search</button>
-                                    <button class="form-btn-light" type="reset">Reset</button>
+                                    <button class="form-btn-light" id="resetButton" type="button">Reset</button>
                                 </div>
                             </div>
                         </form>
@@ -111,7 +111,7 @@
                     $tax_query[] = 
                         ['taxonomy' => 'advocate_designation',
                         'field' => 'slug',
-                        'erms' => sanitize_text_field($_GET['advocate_designation']),
+                        'terms' => sanitize_text_field($_GET['advocate_designation']),
                         ];
                 }
                 if (!empty($_GET['advocate_practice_area'])) {
@@ -150,7 +150,18 @@
                             <img src="<?php the_post_thumbnail_url('thumbnail');?>" alt="">
                         </div>
                         <div class="team-card-info">
-                            <h6>Partner</h6>
+                            <?php
+                                $terms = get_the_terms($advocate->ID, 'advocate_designation');
+                                if ($terms && !is_wp_error($terms)) {
+                                    $term_names = array();
+                                    foreach ($terms as $term) {
+                                        $term_names[] = $term->name;
+                                    }
+                                    echo '<h6>'.implode(', ', $term_names).'</h6>';
+                                } else {
+                                    echo 'No designation';
+                                }
+                            ?> 
                             <h5><?php the_title();?></h5>
                             <div class="team-card-bottom">
                                 <ul>
@@ -161,9 +172,9 @@
                                         if ($terms && !is_wp_error($terms)) {
                                             $term_names = array();
                                             foreach ($terms as $term) {
-                                                $term_names[] = $term->name;
+                                                $term_names = $term->name;
                                             }
-                                            echo implode(', ', $term_names);
+                                            echo $term_names;
                                         } else {
                                             echo 'No designation';
                                         }
@@ -174,16 +185,26 @@
                                 </ul>
                             </div>
                             <div class="team-social-links">
-                                <a href=""><i class="fa fa-facebook-official"></i></a>
-                                <a href=""><i class="fa fa-linkedin-square"></i></a>
-                                <a href=""><i class="fa fa-twitter"></i></a>
-                                <a href=""><i class="fa fa-instagram"></i></a>
+                            <?php 
+                                $Socials = get_field('social_links');
+                                if (is_array($Socials) && !empty($Socials)):
+                                    foreach ($Socials as $social) :
+                            ?>
+                                    <a href="<?php echo $social['social_link_url']?>"><i class="<?php echo $social['choose_social_link_type']?>"></i></a>
+                            <?php
+                                    endforeach;
+                                else:
+                                    ?>
+                                    <h6>no social links</h6>
+                                    <?php
+                                endif;
+                                ?>                                
                             </div>
                             <div class="team-cta">
                                 <a href="javascript:void(0)" class="pbmit-btn pbmit-btn-inline pbmit-btn-sm quick-info">
                                     <span>Quick Info</span>
                                 </a>
-                                <a href="#" class="pbmit-btn pbmit-btn-inline pbmit-btn-sm">
+                                <a href="<?php the_permalink()?>" class="pbmit-btn pbmit-btn-inline pbmit-btn-sm">
                                     <span>Full Bio</span>
                                 </a>
                             </div>
@@ -191,11 +212,24 @@
                     </div>
                     <div class="team-CardinfoQ">
                         <div class="qDetails">
-                            <img src="images/team/team_01.jpg" alt="">
-                            <h6>Partner</h6>
-                            <h5>Michael Daniel</h5>
+                            <img src="<?php the_post_thumbnail_url('thumbnail');?>" alt="">
+                        
+                            <?php
+                                $terms = get_the_terms($advocate->ID, 'advocate_designation');
+                                if ($terms && !is_wp_error($terms)) {
+                                    $term_names = array();
+                                    foreach ($terms as $term) {
+                                        $term_names =  $term->name;
+                                    }
+                                    echo '<h6>'.$term_names.'</h6>';
+                                } else {
+                                    echo 'No designation';
+                                }
+                            ?> 
+                            
+                            <h5><?php the_title();?></h5>
                         </div>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquid, facilis fugit repellendus beatae iure eius debitis. Nulla eum exercitationem nesciunt dicta distinctio quos repellendus suscipit ea hic, sequi tempora quis.</p>
+                        <p><?php echo wp_trim_words(get_the_content(),16);?></p>
                         <h6>Practice Areas</h6>
                         <ul>
                             <li>Aerospace & Defence</li>
@@ -215,11 +249,22 @@
             </div>
         </div>
     </section>
-    <!-- Team Cards Wrapper end -->
 </div>
-<!-- Page Content End -->
-
-
 <?php
     get_footer();
 ?>
+
+<script>
+    $(document).ready(()=>{
+        $('#resetButton').on('click',function(){
+
+            $("#advocate_office_location").val('');
+            $("#advocate_designation").val('');
+            $("#advocate_practice_area").val('');
+            
+            var currentWindow = window.location.href.split('?')[0];
+            window.location.href = currentWindow;
+
+        })
+    })
+</script>

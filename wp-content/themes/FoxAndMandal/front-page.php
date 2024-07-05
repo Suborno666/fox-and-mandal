@@ -289,7 +289,6 @@ $id = get_the_ID();
                                           <div class="pbminfotech-team-position">
                                              <div class="pbminfotech-box-team-position">
                                              <?php
-
                                              $terms = get_the_terms($advocate->ID, 'advocate_designation');
                                              if ($terms && !is_wp_error($terms)) {
                                                    $term_names = array();

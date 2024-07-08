@@ -9,7 +9,7 @@
             </div>
             <div class="pbmit-breadcrumb">
                 <div class="pbmit-breadcrumb-inner">
-                    <span><a title="" href="#" class="home"><span>Fox & Mondal</span></a></span>
+                    <span><a title="" href="<?php echo esc_url(home_url('/'))?>" class="home"><span>Fox & Mondal</span></a></span>
                     <span class="sep"><i class="fa fa-long-arrow-right"></i></span>
                     <span><span class="post-root post post-post current-item">Blogs</span></span>
                 </div>

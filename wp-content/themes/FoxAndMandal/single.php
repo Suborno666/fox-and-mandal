@@ -1,5 +1,6 @@
 <?php
 get_header();
+get_template_part('template-parts/single');
 global $post_id;
 $post_id = get_the_ID();
 ?>

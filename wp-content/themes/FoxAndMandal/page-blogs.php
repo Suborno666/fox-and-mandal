@@ -1,5 +1,6 @@
 <?php
 get_header();
+get_template_part('template-parts/archive');
 global $wp;
 $current_url = home_url(add_query_arg(array(), $wp->request)); 
 ?>

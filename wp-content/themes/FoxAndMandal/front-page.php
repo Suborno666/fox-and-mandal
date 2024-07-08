@@ -11,9 +11,7 @@ $id = get_the_ID();
          <div class="page-content">
             
             <!-- Welcome --> 
-
             <!-- Welcome End -->  
-
             <!-- About Start --> 
             <section class="aboutSec">
                <div class="container">
@@ -24,10 +22,7 @@ $id = get_the_ID();
                               <img src="<?php echo get_field('logo_image_about')['url'];?>" class="img-fluid" alt="">
                            </div>
                            <div class="about-heading">
-                              
-                                 <p><?php the_content();?></p>
-                              
-                              <p></p>
+                                 <p><?php the_content();?></p>     
                            </div>
                         </div> 
                      </div>
@@ -69,13 +64,11 @@ $id = get_the_ID();
                      <div class="col-md-6">
                         <?php 
                         $args=
-                        [
-                        
+                        [                        
                            'post_type' => 'practice',
                            'post_status' => 'publish',
                            'posts_per_page'=>-1,
-                           'order'=>'ASC',
-                           
+                           'order'=>'ASC',                          
                         ];
                         $loop = new WP_Query($args);
                         while($loop->have_posts()):
@@ -98,13 +91,11 @@ $id = get_the_ID();
                      <div class="col-md-6">
                         <?php 
                         $args=
-                        [
-                        
+                        [                        
                            'post_type' => 'content',
                            'post_status' => 'publish',
                            'posts_per_page'=>-1,
-                           'order'=>'ASC',
-                           
+                           'order'=>'ASC',                           
                         ];
                         $loop = new WP_Query($args);
                         while($loop->have_posts()):
@@ -288,18 +279,19 @@ $id = get_the_ID();
                                              <a href="#"><?php the_title(); ?></a></h3>
                                           <div class="pbminfotech-team-position">
                                              <div class="pbminfotech-box-team-position">
-                                             <?php
-                                             $terms = get_the_terms($advocate->ID, 'advocate_designation');
-                                             if ($terms && !is_wp_error($terms)) {
-                                                   $term_names = array();
-                                                   foreach ($terms as $term) {
-                                                      $term_names[] = $term->name;
+                                                <?php
+                                                   $terms = get_the_terms($advocate->ID, 'advocate_designation');
+                                                   if ($terms && !is_wp_error($terms)) {
+                                                         $term_names = array();
+                                                         foreach ($terms as $term) {
+                                                            $term_names[] = $term->name;
+                                                         }
+                                                         echo implode(', ', $term_names);
+                                                   } else {
+                                                         echo 'No designation';
                                                    }
-                                                   echo implode(', ', $term_names);
-                                             } else {
-                                                   echo 'No designation';
-                                             }
-                                             ?>                                             </div>
+                                                ?>                                                                                         
+                                             </div>
                                           </div>
                                        </div>
                                     </div>
@@ -311,15 +303,7 @@ $id = get_the_ID();
                            wp_reset_postdata();
                            ?>
                         </div>
-                        
-                        
                      </div>
-                     
-                     <!-- <div class="temNav nav-style-one">
-                        <div class="project-next next"><i class="icon arrow-next"></i></div>
-                        <div class="project-prev prev"><i class="icon arrow-prev"></i></div>
-                     </div>  -->
-                  
                   <div class="portfolio-btn">
                      <a href="<?php the_permalink()?>" class="pbmit-btn pbmit-btn-inline">
                         <span>View All Team</span>
@@ -328,7 +312,6 @@ $id = get_the_ID();
                </div>
             </section>
             <!-- Team End -->
-
 
             <section class="blog-section-home2" data-cursor="global-color">
                <div class="container">

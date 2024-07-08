@@ -230,12 +230,3 @@
       </header>
       <!-- Header Main Area End Here -->
          <!-- Title Bar -->
-         <?php if(is_single()):?>
-
-            <?php get_template_part('template-parts/single')?>
-            
-         <?php endif; ?>
-         <!-- Title Bar End-->
-         <?php if(is_page(226)|| is_archive()):?>
-            <?php get_template_part('template-parts/archive')?>
-         <?php endif; ?>

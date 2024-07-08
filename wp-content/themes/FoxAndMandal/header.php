@@ -28,7 +28,7 @@
                   <li class="menu_list <?php echo ($menu['child_menu']>0)?'has-sub':''; ?>" >
                      <img src="<?php echo $menu['parent_logo'];?>" alt=""> 
                      <div class="subWrapF">
-                        <a href="<?php echo $menu['menu_label'];?>"><?php echo $menu['menu_label'];?></a>
+                        <a href="<?php echo $menu['menu_url'];?>"><?php echo $menu['menu_label'];?></a>
                   <?php if($menu['child_menu']>0): ?>
                            <ul class="subwrapUl">
                               <?php foreach($menu['child_menu'] as $childMenu):?>

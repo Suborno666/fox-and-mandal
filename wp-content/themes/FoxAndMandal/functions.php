@@ -240,6 +240,24 @@ function custom_post() {
         'rewrite' => ['slug' => 'testimonials'],
         'supports' => ['title', 'editor'],
     ]);
+
+    register_post_type('saved_forms',[
+        'labels'=>[
+            'name' => 'Saved Forms',
+            'singular_name'=>'Saved Form',
+        ],
+        'public' => true,
+        'has_archive'=> false,
+        'menu_icon' => 'dashicons-admin-page',
+        'rewrite' => 
+        [
+            'slug' => 'testimonials'
+        ],
+        'supports' => 
+        [
+            'title','editor','thumbnail'
+        ]
+    ]);
 }
 add_action('init', 'custom_post');
 
@@ -297,12 +315,6 @@ function populate_acf_field_in_cf7($tag) {
         return $tag;
     }
 
-    // echo '<pre style="Color:white">';
-    // print_r($tag);
-    // echo '</pre>';
-
-    // return $tag;
-
     // Get ACF field value
     $emails = get_field('email_fields', 'option');
 
@@ -351,5 +363,47 @@ function custom_tel_validation( $result, $tag ) {
 add_filter( 'wpcf7_validate_tel*', 'custom_tel_validation', 10, 2 );
 
 
+// add_action('wpcf7_mail_sent','save_my_form_data_to_my_cpt');
+add_action('wpcf7_mail_failed','save_my_form_data_to_my_cpt');
 
+function save_my_form_data_to_my_cpt($contact_form){
+    $submission = WPCF7_Submission::get_instance();
+    if (!$submission){
+        return;
+    }
+    $posted_data = $submission->get_posted_data();
+    //The Sent Fields are now in an array
+    //Let's say you got 4 Fields in your Contact Form
+    //my-email, my-name, my-subject and my-message
+    //you can now access them with $posted_data['my-email']
+    //Do whatever you want like:
+    $new_post = array();
+    if(isset($posted_data['my-subject']) && !empty($posted_data['my-subject'])){
+        $new_post['post_title'] = $posted_data['my-subject'];
+    } else {
+        $new_post['post_title'] = 'Message';
+    }
+    $new_post['post_type'] = 'my_awesome_cpt'; //insert here your CPT
+    if(isset($posted_data['my-message'])){
+        $new_post['post_content'] = $posted_data['my-message'];
+    } else {
+        $new_post['post_content'] = 'No Message was submitted';
+    }
+    $new_post['post_status'] = 'publish';
+    //you can also build your post_content from all of the fields of the form, or you can save them into some meta fields
+    if(isset($posted_data['my-email']) && !empty($posted_data['my-email'])){
+        $new_post['meta_input']['sender_email_address'] = $posted_data['my-email'];
+    }
+    if(isset($posted_data['my-name']) && !empty($posted_data['my-name'])){
+        $new_post['meta_input']['sender_name'] = $posted_data['my-name'];
+    }
+    //When everything is prepared, insert the post into your Wordpress Database
+    if($post_id = wp_insert_post($new_post)){
+       //Everything worked, you can stop here or do whatever
+    } else {
+       //The post was not inserted correctly, do something (or don't ;) )
+    }
+    return;
+}
+$link = 'https://wordpress.stackexchange.com/questions/328429/how-to-save-contact-form-7-data-in-custom-post-types-cpt'; 
 ?>

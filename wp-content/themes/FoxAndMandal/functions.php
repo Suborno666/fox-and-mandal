@@ -7,7 +7,7 @@ if( function_exists('acf_add_options_page') ) {
 }
 
 function fox_and_mandal_theme_supports(){
-add_theme_support('post-thumbnails');
+    add_theme_support('post-thumbnails');
 }
 add_action('after_setup_theme','fox_and_mandal_theme_supports');
 
@@ -251,7 +251,7 @@ function custom_post() {
         'menu_icon' => 'dashicons-admin-page',
         'rewrite' => 
         [
-            'slug' => 'testimonials'
+            'slug' => 'saved_forms'
         ],
         'supports' => 
         [
@@ -362,48 +362,76 @@ function custom_tel_validation( $result, $tag ) {
 
 add_filter( 'wpcf7_validate_tel*', 'custom_tel_validation', 10, 2 );
 
-
-// add_action('wpcf7_mail_sent','save_my_form_data_to_my_cpt');
-add_action('wpcf7_mail_failed','save_my_form_data_to_my_cpt');
-
-function save_my_form_data_to_my_cpt($contact_form){
+function save_my_form_data_to_my_cpt($contact_form) {
+    
     $submission = WPCF7_Submission::get_instance();
-    if (!$submission){
+    if (!$submission) {
         return;
     }
+
     $posted_data = $submission->get_posted_data();
-    //The Sent Fields are now in an array
-    //Let's say you got 4 Fields in your Contact Form
-    //my-email, my-name, my-subject and my-message
-    //you can now access them with $posted_data['my-email']
-    //Do whatever you want like:
+    $uploaded_files = $submission->uploaded_files();
+
+    // Create a new post
     $new_post = array();
-    if(isset($posted_data['my-subject']) && !empty($posted_data['my-subject'])){
-        $new_post['post_title'] = $posted_data['my-subject'];
+    if (isset($posted_data['text-479']) && !empty($posted_data['text-479'])) {
+        $new_post['post_title'] = $posted_data['text-479'];
     } else {
         $new_post['post_title'] = 'Message';
     }
-    $new_post['post_type'] = 'my_awesome_cpt'; //insert here your CPT
-    if(isset($posted_data['my-message'])){
-        $new_post['post_content'] = $posted_data['my-message'];
+
+    $new_post['post_type'] = 'saved_forms';
+    if (isset($posted_data['textarea-414'])) {
+        $new_post['post_content'] = $posted_data['textarea-414'];
     } else {
         $new_post['post_content'] = 'No Message was submitted';
     }
     $new_post['post_status'] = 'publish';
-    //you can also build your post_content from all of the fields of the form, or you can save them into some meta fields
-    if(isset($posted_data['my-email']) && !empty($posted_data['my-email'])){
-        $new_post['meta_input']['sender_email_address'] = $posted_data['my-email'];
-    }
-    if(isset($posted_data['my-name']) && !empty($posted_data['my-name'])){
-        $new_post['meta_input']['sender_name'] = $posted_data['my-name'];
-    }
-    //When everything is prepared, insert the post into your Wordpress Database
-    if($post_id = wp_insert_post($new_post)){
-       //Everything worked, you can stop here or do whatever
+
+    
+    if ($post_id = wp_insert_post($new_post)) {
+        // Update the meta field for the email
+        if (isset($posted_data['email-678']) && !empty($posted_data['email-678'])) {
+            update_post_meta($post_id, 'form_email', $posted_data['email-678']);
+        }
+        if (!empty($uploaded_files)) {
+            // move image from temp folder to upload folder
+            $file = file_get_contents($uploaded_files['file-658'][0]);
+            $image_name = basename($uploaded_files['file-658'][0]);
+            $imageUpload = wp_upload_bits( $image_name, null, $file);
+            //
+            require_once(ABSPATH . 'wp-admin/includes/admin.php');
+            // construct array to register this image
+            $filename = $imageUpload['file'];
+            $attachment = array(
+                'post_mime_type' => $imageUpload['type'],
+                'post_parent' => $post_id,
+                'post_title' => $posted_data['field_title'] . ' - ' .
+                    $posted_data['field_contributor'],
+                'post_content' => $posted_data['field_info'],
+                'post_status' => 'inherit'
+            );
+            // attach image to this post
+            $attachment_id = wp_insert_attachment($attachment, $filename, $post_id);
+            if (!is_wp_error($attachment_id)) {
+                require_once(ABSPATH . 'wp-admin/includes/image.php');
+                $attachment_data = wp_generate_attachment_metadata($attachment_id, $filename);
+    
+                wp_update_attachment_metadata($attachment_id, $attachment_data);
+                set_post_thumbnail($post_id, $attachment_id);
+    
+                update_field('ad_image', $attachment_id, $post_id);
+            }
+        }
     } else {
-       //The post was not inserted correctly, do something (or don't ;) )
+        // The post was not inserted correctly, handle the error if needed
     }
-    return;
+    // wp_die();
 }
-$link = 'https://wordpress.stackexchange.com/questions/328429/how-to-save-contact-form-7-data-in-custom-post-types-cpt'; 
+
+add_action('wpcf7_mail_sent', 'save_my_form_data_to_my_cpt');
+
+// $link = 'https://wordpress.stackexchange.com/questions/328429/how-to-save-contact-form-7-data-in-custom-post-types-cpt'; 
+
+// $imageLink = 'https://stackoverflow.com/questions/66933665/how-to-process-uploaded-images-in-new-5-4-version-of-contact-form-7-solution';
 ?>

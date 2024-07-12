@@ -308,7 +308,7 @@ function my_phpmailer_smtp( $phpmailer ) {
  * Create an ACF field in CF7
  */
 
- add_filter('wpcf7_form_tag', 'populate_acf_field_in_cf7', 10, 1);
+add_filter('wpcf7_form_tag', 'populate_acf_field_in_cf7', 10, 1);
 
 function populate_acf_field_in_cf7($tag) {
     if ($tag['name'] !== 'menu-713') { 

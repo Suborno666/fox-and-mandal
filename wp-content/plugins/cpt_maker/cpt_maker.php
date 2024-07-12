@@ -9,7 +9,6 @@ Author: Suborno
  * Create a Custom Post Type and Custom Table
  */
 function create_a_cpt() {
-
     register_post_type('recipies', [
         'labels' => [
             'name' => __('Recipies'),
@@ -38,12 +37,12 @@ function create_custom_table() {
 
     $sql = "CREATE TABLE $table_name (
         id mediumint(9) NOT NULL AUTO_INCREMENT,
-        post_id bigint(20) ,
+        post_id bigint(20),
         time datetime DEFAULT '0000-00-00 00:00:00',
         name VARCHAR(255) DEFAULT 'Null',
         description VARCHAR(255),
         recipie text,
-        url varchar(55) DEFAULT 'None',
+        url varchar(255),
         PRIMARY KEY  (id)
     ) $charset_collate;";
 
@@ -74,13 +73,14 @@ function display_recipie_meta_box($post) {
 
     $custom_image_id = get_post_meta($post->ID, 'custom_image_id', true);
     $custom_image_url = wp_get_attachment_image_url($custom_image_id, 'thumbnail');
-    
+
     $meta_values = get_post_meta($post->ID, 'unique_mb_details_id', true);
 
     ?>
     <p>
         <label for="custom_image_id">Upload Custom Image:</label><br>
-        <input type="hidden" name="custom_image_id" id="custom_image_id" value="<?php echo esc_attr($custom_image_id); ?>">
+        <input type="hidden" name="custom_image" id="custom_image_id" value="<?php echo esc_attr($custom_image_id); ?>">
+
         <button type="button" class="upload_image_button">Select Image</button><br>
         <img id="custom_image_preview" src="<?php echo esc_url($custom_image_url); ?>" style="max-width: 300px;">
     </p>
@@ -116,23 +116,19 @@ function display_recipie_meta_box($post) {
  * Save Meta fields data and insert into custom table
  */
 function save_recipie_meta_box($post_id) {
-
     // Check the user's permissions.
-    if ('recipies' == $_POST['post_type']) {
-        if (!current_user_can('edit_post', $post_id)) {
-            return;
-        }
+    if (!isset($_POST['post_type']) || 'recipies' !== $_POST['post_type']) {
+        return;
     }
 
-    global $wpdb;
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
 
     // Save the meta box data
-    $custom_image_id = '';
-    $unique_mb_details_id = '';
-    
-    if (isset($_POST['custom_image_id'])) {
-        $custom_image_id = sanitize_text_field($_POST['custom_image_id']);
-        update_post_meta($post_id, 'custom_image_id', $custom_image_id);
+    if (isset($_POST['custom_image'])) {
+        $custom_image_id = sanitize_text_field($_POST['custom_image']);
+        update_post_meta($post_id, 'custom_image', $custom_image_id);
     }
 
     if (isset($_POST['unique_mb_details_id'])) {
@@ -140,19 +136,27 @@ function save_recipie_meta_box($post_id) {
         update_post_meta($post_id, 'unique_mb_details_id', $unique_mb_details_id);
     }
 
+    // Now, retrieve the meta fields to insert/update in the custom table
+    
+    $description = get_post_meta($post_id, 'unique_mb_details_id', true);
+
+    $attachment_id = get_post_meta($post_id, 'custom_image', true);
+    $image_url = wp_get_attachment_url($attachment_id);
+
     // Insert/Update data in custom table
+    global $wpdb;
     $table_name = $wpdb->prefix . "recipies";
     $time = current_time('mysql');
 
     $data = [
         'post_id' => $post_id,
         'time' => $time,
-        'name'=>get_the_title($post_id)
-        // 'description' => get_post_meta($post_id,''),
-        'recipie' => $unique_mb_details_id,
-        'url' => wp_get_attachment_url($custom_image_id)
+        'name' => get_the_title($post_id),
+        'description' => $description,
+        'recipie' => 'Image',
+        'url' => $image_url, 
+        // wp_get_attachment_url($custom_image_id)
     ];
-    $wpdb->insert($table_name,$data);
 
     $existing_entry = $wpdb->get_row($wpdb->prepare("SELECT * FROM $table_name WHERE post_id = %d", $post_id));
 
@@ -170,8 +174,17 @@ function save_recipie_meta_box($post_id) {
     }
 }
 add_action('save_post', 'save_recipie_meta_box');
-function bt_disable_autosave () {
-    wp_deregister_script('autosave');
+
+
+/**
+ * Deactivation hook.
+ */
+function pluginprefix_deactivate() {
+
+    unregister_post_type('recipies');
+
+    flush_rewrite_rules();
 }
-add_action('admin_init', 'bt_disable_autosave');
+register_deactivation_hook(__FILE__, 'pluginprefix_deactivate');
+
 ?>

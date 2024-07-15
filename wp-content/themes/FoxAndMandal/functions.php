@@ -65,7 +65,7 @@ add_action('wp_enqueue_scripts','fox_and_mandal_enqueue_links');
  * Creating Header Menu
  */
 
-function custom_menu() {
+function fox_and_mandal_custom_menu() {
     register_nav_menu('header-menu-about',__( 'Header Menu About' ));
     register_nav_menu('header-menu-insights',__( 'Header Menu Insights' ));
     register_nav_menu('header-menu-careers',__( 'Header Menu Careers' ));
@@ -73,14 +73,14 @@ function custom_menu() {
     register_nav_menu('socials-menu',__( 'Socials Menu' ));
 
 }
-add_action( 'init', 'custom_menu' );
+add_action( 'init', 'fox_and_mandal_custom_menu' );
 
 
 
 /**
  * Add Custom Taxonomy
  */
-function add_custom_taxonomies() {
+function fox_and_mandal_add_custom_taxonomies() {
 
     /**
      * Advocate Designation
@@ -180,12 +180,12 @@ function add_custom_taxonomies() {
         ],
     ));
 }
-add_action('init', 'add_custom_taxonomies', 0);
+add_action('init', 'fox_and_mandal_add_custom_taxonomies', 0);
 
 /**
  * Custom Posts
  */
-function custom_post() {
+function fox_and_mandal_custom_post() {
     register_post_type('practice', [
         'labels' => [
             'name' => 'Practices',
@@ -259,14 +259,14 @@ function custom_post() {
         ]
     ]);
 }
-add_action('init', 'custom_post');
+add_action('init', 'fox_and_mandal_custom_post');
 
 
 /**
  * Adding Widgets
  */
 
-    function wpb_widgets_init() {
+    function fox_and_mandal_wpb_widgets_init() {
         register_sidebar( [
             'name' => __( 'Bottom Sidebar', 'wpb' ),
             'id' => 'sidebar-1',
@@ -278,17 +278,17 @@ add_action('init', 'custom_post');
         ] );
     }
  
-add_action( 'widgets_init', 'wpb_widgets_init' );
+add_action( 'widgets_init', 'fox_and_mandal_wpb_widgets_init' );
 
 
-function get_acf_cf7_object() {
+function fox_and_mandal_get_acf_cf7_object() {
     return true;
 }
-add_filter( 'acf_cf7_object', 'get_acf_cf7_object' );
+add_filter( 'acf_cf7_object', 'fox_and_mandal_get_acf_cf7_object' );
 
 
-add_action( 'phpmailer_init', 'my_phpmailer_smtp' );
-function my_phpmailer_smtp( $phpmailer ) {
+add_action( 'phpmailer_init', 'fox_and_mandal_my_phpmailer_smtp' );
+function fox_and_mandal_my_phpmailer_smtp( $phpmailer ) {
     $email = isset($_POST['menu-713'])?$_POST['menu-713']:'';
     $phpmailer->isSMTP();     
     $phpmailer->Host = SMTP_server;  
@@ -308,9 +308,9 @@ function my_phpmailer_smtp( $phpmailer ) {
  * Create an ACF field in CF7
  */
 
-add_filter('wpcf7_form_tag', 'populate_acf_field_in_cf7', 10, 1);
+add_filter('wpcf7_form_tag', 'fox_and_mandal_populate_acf_field_in_cf7', 10, 1);
 
-function populate_acf_field_in_cf7($tag) {
+function fox_and_mandal_populate_acf_field_in_cf7($tag) {
     if ($tag['name'] !== 'menu-713') { 
         return $tag;
     }
@@ -362,7 +362,7 @@ function custom_tel_validation( $result, $tag ) {
 
 add_filter( 'wpcf7_validate_tel*', 'custom_tel_validation', 10, 2 );
 
-function save_my_form_data_to_my_cpt($contact_form) {
+function fox_and_mandal_save_my_form_data_to_my_cpt($contact_form) {
     
     $submission = WPCF7_Submission::get_instance();
     if (!$submission) {
@@ -429,9 +429,21 @@ function save_my_form_data_to_my_cpt($contact_form) {
     // wp_die();
 }
 
-add_action('wpcf7_mail_sent', 'save_my_form_data_to_my_cpt');
+add_action('wpcf7_mail_sent', 'fox_and_mandal_save_my_form_data_to_my_cpt');
 
 // $link = 'https://wordpress.stackexchange.com/questions/328429/how-to-save-contact-form-7-data-in-custom-post-types-cpt'; 
 
 // $imageLink = 'https://stackoverflow.com/questions/66933665/how-to-process-uploaded-images-in-new-5-4-version-of-contact-form-7-solution';
+
+/**
+ * How to trim URL?
+ */
+// add_filter('term_link','fox_and_mandal_trim_slug',10,3);
+// function fox_and_mandal_trim_slug($url,$term,$taxonomy){
+//     print_r($url);
+//     print_r($term);
+//     print_r($taxonomy);
+// }
+
+
 ?>

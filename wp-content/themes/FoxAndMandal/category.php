@@ -1,6 +1,8 @@
 <?php
 get_header();
 get_template_part('template-parts/archive');
+global $wp_rewrite;  
+var_dump($wp_rewrite->rules); 
 ?>
 		<!-- Page Content -->
 		<div class="page-content about-light-section1">		

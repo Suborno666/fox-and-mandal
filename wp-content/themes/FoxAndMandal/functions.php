@@ -438,12 +438,39 @@ add_action('wpcf7_mail_sent', 'fox_and_mandal_save_my_form_data_to_my_cpt');
 /**
  * How to trim URL?
  */
-// add_filter('term_link','fox_and_mandal_trim_slug',10,3);
-// function fox_and_mandal_trim_slug($url,$term,$taxonomy){
-//     print_r($url);
-//     print_r($term);
-//     print_r($taxonomy);
-// }
+//**************************To change main query********************************//
 
 
-?>
+add_filter('request', 'rudr_change_term_request', 1, 1 );
+
+function rudr_change_term_request($query){
+   
+    $name= $query['pagename'];
+    // // print_r($name);
+    $query['category_name']= $name;
+    // $query['page'];
+    unset($query['page']);
+    unset($query['pagename']);
+
+    // echo "<pre>";
+    // print_r($query);
+    // die();
+    return $query;
+
+}
+
+//***************************************remove term from url**********************************//
+
+add_filter( 'term_link', 'ic_term_permalink', 10, 3 );
+
+function ic_term_permalink( $url, $term, $taxonomy ){
+
+    if ( $taxonomy == 'category' ){
+
+        $url = str_replace( 'category/', '', $url );
+        return $url;
+    }
+}
+
+
+

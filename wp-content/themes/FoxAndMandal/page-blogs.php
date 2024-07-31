@@ -64,6 +64,8 @@ $current_url = home_url(add_query_arg(array(), $wp->request));
 								<?php
 								endwhile;
 								wp_reset_postdata();
+								// wp_reset_postdata();
+								wp_reset_query();
 								?>
 	
 							</div>							
